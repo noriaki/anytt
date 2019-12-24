@@ -15,6 +15,7 @@
 const allowExtensions = ['.js', '.jsx', '.ts', '.tsx'];
 
 module.exports = {
+  root: true,
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaFeatures: {
@@ -68,7 +69,12 @@ module.exports = {
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': [
       'error',
-      { argsIgnorePattern: '^_' },
+      {
+        vars: 'all',
+        args: 'after-used',
+        ignoreRestSiblings: false,
+        argsIgnorePattern: '^_',
+      },
     ],
     'react/prop-types': 'off',
     'react/jsx-filename-extension': [
