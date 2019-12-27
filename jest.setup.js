@@ -1,9 +1,9 @@
-const { configure } = require('enzyme');
-const Adapter = require('enzyme-adapter-react-16');
+import { configure } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+import 'jest-enzyme';
 
 // enzyme setup
 configure({ adapter: new Adapter() });
-require('jest-enzyme/lib');
 
 // error handling
 const logAndExit = error => {
