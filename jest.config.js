@@ -5,14 +5,13 @@ const { compilerOptions } = require('./tsconfig');
 
 const pathIgnorePatterns = ['<rootDir>/.git/', '<rootDir>/.next/'];
 const nodeModulesPattern = '<rootDir>/node_modules/';
+const autoFixTempPattern = '/auto_fix_';
 
 module.exports = {
-  preset: 'ts-jest/presets/js-with-ts',
+  preset: 'ts-jest/presets/js-with-babel',
   testEnvironment: 'node',
-  // setupFilesAfterEnv: [
-  //   './jest.setup.js',
-  // ],
-  testPathIgnorePatterns: [...pathIgnorePatterns, nodeModulesPattern],
+  setupFilesAfterEnv: ['./jest.setup.js'],
+  testPathIgnorePatterns: [...pathIgnorePatterns, nodeModulesPattern, autoFixTempPattern],
   transformIgnorePatterns: [...pathIgnorePatterns, nodeModulesPattern],
   watchPathIgnorePatterns: [...pathIgnorePatterns, nodeModulesPattern],
   modulePathIgnorePatterns: pathIgnorePatterns,

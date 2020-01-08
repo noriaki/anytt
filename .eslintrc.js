@@ -12,7 +12,7 @@
  *
  */
 
-const allowExtensions = ['.js', '.jsx', '.ts', '.tsx'];
+const allowExtensions = ['.ts', '.tsx', '.d.ts', '.js', '.mjs', '.jsx'];
 
 module.exports = {
   root: true,
@@ -33,7 +33,8 @@ module.exports = {
   settings: {
     'import/extensions': allowExtensions,
     'import/resolver': {
-      node: { extensions: allowExtensions },
+      node: { extensions: [...allowExtensions, '.json'] },
+      typescript: { alwaysTryTypes: true },
     },
   },
   globals: {
@@ -57,14 +58,13 @@ module.exports = {
     'prettier/@typescript-eslint',
     'prettier/react',
   ],
-  /*
-  plugins: [
-    '@typescript-eslint', // included in 'plugin:@typescript-eslint/recommended'
-    'react-hooks',        // included in 'airbnb/hooks'
-    'jest',               // included in 'plugin:jest/recommended'
-    'prettier',           // included in 'plugin:prettier/recommended'
-  ],
-  */
+  // plugins: [
+  //   '@typescript-eslint', // included in 'plugin:@typescript-eslint/recommended'
+  //   'import',             // included in 'airbnb'
+  //   'react-hooks',        // included in 'airbnb/hooks'
+  //   'jest',               // included in 'plugin:jest/recommended'
+  //   'prettier',           // included in 'plugin:prettier/recommended'
+  // ],
   rules: {
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': [
@@ -77,14 +77,5 @@ module.exports = {
       },
     ],
     'react/prop-types': 'off',
-    'react/jsx-filename-extension': [
-      'error',
-      { extensions: allowExtensions },
-    ],
-    'import/extensions': [
-      'error',
-      'always',
-      { js: 'never', jsx: 'never', ts: 'never', tsx: 'never' },
-    ],
   },
 };
