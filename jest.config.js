@@ -16,4 +16,9 @@ module.exports = {
   watchPathIgnorePatterns: [...pathIgnorePatterns, nodeModulesPattern],
   modulePathIgnorePatterns: pathIgnorePatterns,
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/' }),
+  globals: {
+    'ts-jest': {
+      tsConfig: '<rootDir>/tsconfig-jest.json',
+    },
+  },
 };
