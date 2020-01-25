@@ -1,0 +1,43 @@
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+name: Test
+
+jobs:
+  test:
+    name: CI Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+
+      - name: Setup node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+
+      - name: Install Yarn-pkg
+        run: npm install -g yarn
+
+      - name: "[INFO] Versions"
+        run: |
+          echo "node: `node --version`"
+          echo "npm:  v`npm --version`"
+          echo "yarn: v`yarn --version`"
+
+      - name: Install packages
+        run: >
+          yarn install
+          --frozen-lockfile
+          --ignore-optional
+          --no-progress
+          --non-interactive
+
+      - name: Test
+        env:
+          MONGODB_URI: ${{ secrets.MONGODB_URI_TEST }}
+          DB_NAME: ${{ secrets.DB_NAME_TEST }}
+        run: yarn test
