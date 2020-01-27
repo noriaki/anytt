@@ -1,12 +1,20 @@
 import { createSchema, Type, ExtractDoc, ExtractProps, typedModel } from 'ts-mongoose';
+import { RoutingDocument } from './Routing';
 
 export const ResidenceSchema = createSchema(
   {
     slug: Type.string({ required: true, unique: true, index: true }),
     name: Type.string({ required: true }),
+    ...({} as { stops: RoutingDocument }),
   },
-  { timestamps: true },
+  { timestamps: true, toJSON: { virtuals: true } },
 );
+
+ResidenceSchema.virtual('stops', {
+  ref: 'Routing',
+  localField: '_id',
+  foreignField: 'residence',
+});
 
 export const collectionName = 'Residence';
 export const Residence = typedModel(collectionName, ResidenceSchema);
