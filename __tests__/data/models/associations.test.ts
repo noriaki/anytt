@@ -17,7 +17,11 @@ describe('associations between Residence and Stop', () => {
     Residence = ret.models.Residence;
     Stop = ret.models.Stop;
     Routing = ret.models.Routing;
-    await Promise.all([Residence.deleteMany({}), Stop.deleteMany({}), Routing.deleteMany({})]);
+    await Promise.all([
+      Residence.deleteMany({}),
+      Stop.deleteMany({}),
+      Routing.deleteMany({}),
+    ]);
     await makeFixtures(Residence, Stop, Routing);
   });
 
@@ -30,7 +34,10 @@ describe('associations between Residence and Stop', () => {
   });
 
   it('populate', async () => {
-    const dt = <ResidenceDocument>await Residence.findOne({ slug: 'dt' }).populate({ path: 'stops', populate: { path: 'stop' } });
+    const dt = (await Residence.findOne({ slug: 'dt' }).populate({
+      path: 'stops',
+      populate: { path: 'stop' },
+    })) as ResidenceDocument;
     expect(dt).not.toBeNull();
     expect(dt).toHaveProperty('stops');
     expect(dt.stops).toHaveLength(2);
@@ -46,11 +53,22 @@ const makeFixtures = async (
     { slug: 'dt', name: 'Deux Tours' },
     { slug: 'pth', name: 'パークタワー晴海' },
   ]);
-  const [hrm3, hmc] = await stopModel.insertMany([{ name: '晴海三丁目' }, { name: 'ホテルマリナーズコート前' }]);
+  const [hrm3, hmc] = await stopModel.insertMany([
+    { name: '晴海三丁目' },
+    { name: 'ホテルマリナーズコート前' },
+  ]);
 
   for (const residence of [dt, pth]) {
-    await routingModel.update({ residence: residence._id, stop: hrm3._id, distance: 2 }, {}, { upsert: true });
+    await routingModel.update(
+      { residence: residence._id, stop: hrm3._id, distance: 2 },
+      {},
+      { upsert: true },
+    );
   }
 
-  await routingModel.update({ residence: dt._id, stop: hmc._id, distance: 1 }, {}, { upsert: true });
+  await routingModel.update(
+    { residence: dt._id, stop: hmc._id, distance: 1 },
+    {},
+    { upsert: true },
+  );
 };
