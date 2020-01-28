@@ -28,10 +28,7 @@ export const connect = async () => {
 };
 
 export const disconnect = async () => {
-  const { connection } = mongoose;
-  if (connection.readyState === connection.states.connected) {
-    await mongoose.disconnect();
-  }
+  await mongoose.disconnect();
 };
 
 export default connect;
