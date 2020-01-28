@@ -1,10 +1,16 @@
 import React from 'react';
 import { NextPage } from 'next';
 
+// material-ui
+import Container from '@material-ui/core/Container';
+
+// components
+import Hero from '~/components/Hero';
+
 const IndexPage: NextPage = () => (
-  <div>
-    <h1>Hello Next.js with TypeScript</h1>
-  </div>
+  <Container maxWidth="sm">
+    <Hero />
+  </Container>
 );
 
 export default IndexPage;
