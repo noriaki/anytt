@@ -19,6 +19,7 @@ const Hero: React.FC = () => (
     >
       Subscribe
     </Button>
+    <Typography>Normal text.</Typography>
   </Typography>
 );
 
