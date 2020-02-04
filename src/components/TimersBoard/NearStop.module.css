@@ -1,11 +1,6 @@
 .container {
   padding-bottom: calc(var(--spacing-unit) * 3);
-  margin-top: calc(var(--spacing-unit) * -1.5);
   border-left: 1px dotted;
-}
-
-.container:last-child {
-  border-left: none;
 }
 
 .item {
@@ -16,8 +11,18 @@
 .item:before {
   content: "";
   display: block;
-  border-top: 1px dotted;
+  border-bottom: 1px dotted;
   padding-left: var(--spacing-unit);
+}
+
+.container:last-child {
+  border-left: none;
+}
+
+.container:last-child .item:before {
+  border-left: 1px dotted;
+  height: calc(var(--spacing-unit) * 1.5);
+  transform: translateY(-50%);
 }
 
 .header {
