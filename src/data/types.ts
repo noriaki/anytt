@@ -1,3 +1,8 @@
+export type NextTime = {
+  hour: number;
+  minute: number;
+};
+
 export type TimetableHour = {
   hour: number;
   minutes: number[];

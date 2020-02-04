@@ -1,4 +1,5 @@
 .time {
+  width: unset;
   flex-grow: 1;
 }
 

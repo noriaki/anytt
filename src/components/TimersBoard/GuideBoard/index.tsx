@@ -14,7 +14,7 @@ import ForwardArrowIcon from '@material-ui/icons/ArrowForwardIosRounded';
 import styles from './GuideBoard.module.css';
 
 // types
-import { Route, Timetable } from '~/data/types';
+import { Route, Timetable, NextTime } from '~/data/types';
 
 type GuideBoardComponent = React.FC<{
   route: Route;
@@ -22,11 +22,36 @@ type GuideBoardComponent = React.FC<{
 
 type pickTimetableF = (timetables: Timetable[], day: number) => Timetable | undefined;
 
+type nextTimeF = (timetable: Timetable, now: Date) => NextTime | null;
+
 const pickTimetable: pickTimetableF = (ts, d) => ts.find(t => t.calendar.includes(d));
 
+// prototyping
+const nextTime: nextTimeF = (tt, now) => {
+  if (tt.data === null) {
+    return null;
+  }
+  const h = now.getHours();
+  const m = now.getMinutes();
+  const data = tt.data.find(t => t.hour === h);
+  if (data == null) {
+    return null;
+  }
+  const { hour, minutes } = data;
+  const mi = minutes.findIndex(mt => mt > m);
+  const minute = minutes[mi];
+  return { hour, minute };
+};
+
 const GuideBoard: GuideBoardComponent = ({ route }) => {
-  const day = new Date().getDay();
+  const now = new Date('2020-01-29 07:11:19');
+  const day = now.getDay(); // Wednesday
   const timetable = pickTimetable(route.timetables, day);
+
+  let n: NextTime | null;
+  if (timetable != null) {
+    n = nextTime(timetable, now);
+  }
 
   return (
     <Grid container direction="column">
@@ -40,7 +65,7 @@ const GuideBoard: GuideBoardComponent = ({ route }) => {
           </Grid>
         )}
       </Grid>
-      <Grid item container justify="space-between" alignItems="center">
+      <Grid item container justify="space-between" alignItems="flex-end">
         <Grid item>
           <Button
             color="secondary"
@@ -56,8 +81,35 @@ const GuideBoard: GuideBoardComponent = ({ route }) => {
             </Typography>
           </Button>
         </Grid>
-        <Grid item className={styles.time}>
-          <Typography>{timetable?.id}</Typography>
+        <Grid
+          item
+          container
+          justify="space-around"
+          alignItems="baseline"
+          className={styles.time}
+        >
+          <Grid item>
+            <Typography component="span" variant="h6">
+              {n!.hour}:{n!.minute}
+            </Typography>
+            <Typography component="span" variant="body2">
+              発
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Typography component="span" variant="h4">
+              {n!.minute - now.getMinutes()}
+            </Typography>
+            <Typography component="span" variant="body2">
+              分
+            </Typography>
+            <Typography component="span" variant="h4">
+              {60 - now.getSeconds()}
+            </Typography>
+            <Typography component="span" variant="body2">
+              秒
+            </Typography>
+          </Grid>
         </Grid>
         <Grid item>
           <Button
