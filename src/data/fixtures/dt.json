@@ -1,0 +1,165 @@
+{
+  "id": "rs001",
+  "slug": "dt",
+  "name": "Deux Tours/ドゥトゥール",
+  "stops": [
+    {
+      "distance": 0,
+      "stop": {
+        "id": "s001",
+        "name": "ドゥトゥール前",
+        "agency": {
+          "id": "a001",
+          "name": "シャトルバス"
+        },
+        "routes": [
+          {
+            "id": "rt001",
+            "headsign": null,
+            "dest": "東銀座駅・新橋駅",
+            "description": "",
+            "timetables": [
+              {
+                "id": "t001",
+                "calendar": [1, 2, 3, 4, 5],
+                "data": [
+                  {
+                    "hour": 6,
+                    "minutes": [0, 30 , 45]
+                  },
+                  {
+                    "hour": 7,
+                    "minutes": [0, 10, 20, 35, 50]
+                  }
+                ]
+              },
+              {
+                "id": "t002",
+                "calendar": [6],
+                "data": null
+              },
+              {
+                "id": "t003",
+                "calendar": [0],
+                "data": null
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "distance": 180,
+      "stop": {
+        "id": "s002",
+        "name": "ホテルマリナーズコート東京前",
+        "agency": {
+          "id": "a002",
+          "name": "都営バス"
+        },
+        "routes": [
+          {
+            "id": "rt002",
+            "headsign": "都05-1",
+            "dest": "東京駅丸の内南口",
+            "description": "",
+            "timetables": [
+              {
+                "id": "t004",
+                "calendar": [1, 2, 3, 4, 5],
+                "data": [
+                  {
+                    "hour": 6,
+                    "minutes": [32, 40, 52, 58]
+                  },
+                  {
+                    "hour": 7,
+                    "minutes": [8, 13, 19, 24, 29, 34, 39, 44, 49, 54, 58]
+                  }
+                ]
+              },
+              {
+                "id": "t005",
+                "calendar": [6],
+                "data": [
+                  {
+                    "hour": 6,
+                    "minutes": [32, 42 , 55]
+                  },
+                  {
+                    "hour": 7,
+                    "minutes": [17, 26, 34, 42, 50]
+                  }
+                ]
+              },
+              {
+                "id": "t006",
+                "calendar": [0],
+                "data": [
+                  {
+                    "hour": 6,
+                    "minutes": [32, 47]
+                  },
+                  {
+                    "hour": 7,
+                    "minutes": [2, 30, 40, 50]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "rt003",
+            "headsign": "都03",
+            "dest": "四谷駅",
+            "description": "",
+            "timetables": [
+              {
+                "id": "t007",
+                "calendar": [1, 2, 3, 4, 5],
+                "data": [
+                  {
+                    "hour": 6,
+                    "minutes": [37]
+                  },
+                  {
+                    "hour": 7,
+                    "minutes": [7, 27, 52]
+                  }
+                ]
+              },
+              {
+                "id": "t008",
+                "calendar": [6],
+                "data": [
+                  {
+                    "hour": 6,
+                    "minutes": [37]
+                  },
+                  {
+                    "hour": 7,
+                    "minutes": [27]
+                  }
+                ]
+              },
+              {
+                "id": "t009",
+                "calendar": [0],
+                "data": [
+                  {
+                    "hour": 6,
+                    "minutes": [36]
+                  },
+                  {
+                    "hour": 7,
+                    "minutes": [1]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
