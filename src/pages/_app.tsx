@@ -2,6 +2,9 @@ import React from 'react';
 import App from 'next/app';
 import Head from 'next/head';
 import { ThemeProvider, StylesProvider } from '@material-ui/core/styles';
+
+// material-ui components
+import MuiContainer from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 import theme from '~/contexts/theme';
@@ -29,7 +32,9 @@ export default class MyApp extends App {
           <StylesProvider injectFirst>
             {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
             <CssBaseline />
-            <Component {...pageProps} />
+            <MuiContainer maxWidth="xs" style={{ padding: 0 }}>
+              <Component {...pageProps} />
+            </MuiContainer>
           </StylesProvider>
         </ThemeProvider>
       </React.Fragment>
