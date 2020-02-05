@@ -4,6 +4,7 @@ import React, { Fragment } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
+import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import Divider from '@material-ui/core/Divider';
 import Chip from '@material-ui/core/Chip';
@@ -37,13 +38,20 @@ const NearStop: NearStopComponent = ({ target }) => {
       </Grid>
       <Grid item className={styles.stop}>
         <Card>
-          <CardHeader
-            className={styles.header}
-            title={stop.name}
-            subheader={stop.agency.name}
-            titleTypographyProps={{ variant: 'body1' }}
-            subheaderTypographyProps={{ variant: 'body2' }}
-          />
+          <Grid container className={styles['header-container']}>
+            <Grid item className={styles['header-title']}>
+              <CardHeader
+                className={styles.title}
+                title={stop.name}
+                subheader={stop.agency.name}
+                titleTypographyProps={{ variant: 'body2' }}
+                subheaderTypographyProps={{ variant: 'caption' }}
+              />
+            </Grid>
+            <Grid item className={styles['header-map']}>
+              <CardMedia component="img" image="/bus-map.png" className={styles.map}/>
+            </Grid>
+          </Grid>
           <CardContent>
             {stop.routes.map((route, i) => (
               <Fragment key={route.id}>
