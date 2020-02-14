@@ -9,7 +9,8 @@ const autoFixTempPattern = '/auto_fix_';
 
 module.exports = {
   preset: 'ts-jest/presets/js-with-babel',
-  testEnvironment: './jest.env.mongo.js',
+  testEnvironment: 'node',
+  testMatch: ['/* @override: No match defaults, Override if needed. */'],
   setupFilesAfterEnv: ['./jest.setup.js', './jest.setup.ts'],
   testPathIgnorePatterns: [...pathIgnorePatterns, nodeModulesPattern, autoFixTempPattern],
   transformIgnorePatterns: [...pathIgnorePatterns, nodeModulesPattern],
