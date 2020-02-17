@@ -6,4 +6,8 @@ module.exports = {
   testMatch: [
     "<rootDir>/__tests__/data/**/(*.)+(spec|test).[jt]s?(x)",
   ],
+  setupFilesAfterEnv: [
+    ...baseConfig.setupFilesAfterEnv,
+    './jest.setupAfterEnv.mongo.ts',
+  ],
 };
