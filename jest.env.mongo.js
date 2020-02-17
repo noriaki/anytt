@@ -6,7 +6,6 @@ module.exports = class UsingMongoEnv extends NodeEnvironment {
   constructor(config, context) {
     super(config, context);
 
-    this.testPath = context.testPath;
     if (process.env.MONGODB_URI == null) {
       this.global.process.env.MONGODB_URI = 'mongodb://localhost/anytt_test';
     }
@@ -14,6 +13,7 @@ module.exports = class UsingMongoEnv extends NodeEnvironment {
   }
 
   async setup() {
+    await super.setup();
     const parsed = new URL(this.global.process.env.MONGODB_URI);
     parsed.pathname = `${parsed.pathname}--${nanoid(4)}`;
     this.global.process.env.MONGODB_URI = parsed.toString();
@@ -21,6 +21,7 @@ module.exports = class UsingMongoEnv extends NodeEnvironment {
 
   async teardown() {
     this.global.process.env.MONGODB_URI = this._ORIGINAL_MONGODB_URI_;
+    await super.teardown();
   }
 
   runScript(script) {
