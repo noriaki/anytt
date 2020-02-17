@@ -1,4 +1,4 @@
-import connectMongoDB from '~/data/db';
+import { DatabaseInfo } from '~/data/db';
 
 const residences = [
   { slug: 'dt', name: 'Deux Tours' },
@@ -11,21 +11,13 @@ const stops = [
   { name: 'ホテルマリナーズコート前' },
 ];
 
-export const deleteModels = async () => {
-  const { connection } = await connectMongoDB();
-  connection.deleteModel(/.+/); // every model
+export const deleteModels = (db: DatabaseInfo) => {
+  const models = db.connection.modelNames();
+  return Promise.all(models.map(name => db.connection.models[name].deleteMany({})));
 };
 
-export const dropCollections = async () => {
-  const { connection } = await connectMongoDB();
-  const collections = Object.keys(connection.collections);
-  return Promise.all(collections.map(name => connection.dropCollection(name)));
-};
-
-export const importFixtures = async () => {
-  const {
-    models: { Residence, Stop, Routing },
-  } = await connectMongoDB();
+export const importFixtures = async (db: DatabaseInfo) => {
+  const { Residence, Stop, Routing } = db.models;
   const [dt, pth] = await Residence.insertMany(residences);
   const [dstop, hrm3, hmc] = await Stop.insertMany(stops);
 
