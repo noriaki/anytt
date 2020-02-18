@@ -28,10 +28,9 @@ jobs:
 
       - name: Software versions
         run: |
-          node --version
-          npm --version
-          yarn --version
-          mongo --version
+          echo node: `node --version`
+          echo npm:  v`npm --version`
+          echo yarn: v`yarn --version`
 
       - name: Install packages
         run: >
