@@ -16,9 +16,7 @@ jobs:
           - 27017:27017
 
     steps:
-      - uses: actions/checkout@v1
-        with:
-          fetch-depth: 1
+      - uses: actions/checkout@v2
 
       - name: Setup node.js
         uses: actions/setup-node@v1
@@ -28,11 +26,11 @@ jobs:
       - name: Install Yarn-pkg
         run: npm install -g yarn
 
-      - name: "[INFO] Versions"
+      - name: Software versions
         run: |
-          echo "node: `node --version`"
-          echo "npm:  v`npm --version`"
-          echo "yarn: v`yarn --version`"
+          echo node: `node --version`
+          echo npm:  v`npm --version`
+          echo yarn: v`yarn --version`
 
       - name: Install packages
         run: >
