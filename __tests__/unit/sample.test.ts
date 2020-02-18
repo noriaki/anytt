@@ -1,4 +1,4 @@
-import { compilerOptions } from '../tsconfig-jest.json';
+import { compilerOptions } from '../../tsconfig-jest.json';
 
 const sum = (a: number, b: number): number => a + b;
 

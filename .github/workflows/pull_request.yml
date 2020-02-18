@@ -9,6 +9,12 @@ jobs:
     name: CI Test
     runs-on: ubuntu-latest
 
+    services:
+      mongodb:
+        image: mongo
+        ports:
+          - 27017:27017
+
     steps:
       - uses: actions/checkout@v1
         with:
@@ -37,7 +43,4 @@ jobs:
           --non-interactive
 
       - name: Test
-        env:
-          MONGODB_URI: ${{ secrets.MONGODB_URI_TEST }}
-          DB_NAME: ${{ secrets.DB_NAME_TEST }}
         run: yarn test

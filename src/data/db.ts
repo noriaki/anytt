@@ -6,15 +6,25 @@ import { RoutingSchema } from './models/Routing';
 
 export type MongooseModel = Model<Document, {}>;
 
+export type DatabaseInfo = {
+  connection: Connection;
+  models: {
+    [name: string]: MongooseModel;
+  };
+};
+
 export const createModels = (connection: Connection) => ({
   Residence: connection.model('Residence', ResidenceSchema),
   Stop: connection.model('Stop', StopSchema),
   Routing: connection.model('Routing', RoutingSchema),
 });
 
-export const connect = async () => {
+export const connect = async (): Promise<DatabaseInfo> => {
   let { connection } = mongoose;
   if (connection.readyState !== connection.states.connected) {
+    if (process.env.MONGODB_URI == null) {
+      throw new Error('MONGODB_URI environment variable is required.');
+    }
     connection = await mongoose.createConnection(process.env.MONGODB_URI, {
       useNewUrlParser: true,
       useCreateIndex: true,
