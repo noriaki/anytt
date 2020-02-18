@@ -26,11 +26,12 @@ jobs:
       - name: Install Yarn-pkg
         run: npm install -g yarn
 
-      - name: "[INFO] Versions"
+      - name: Software versions
         run: |
-          echo "node: `node --version`"
-          echo "npm:  v`npm --version`"
-          echo "yarn: v`yarn --version`"
+          node --version
+          npm --version
+          yarn --version
+          mongo --version
 
       - name: Install packages
         run: >
