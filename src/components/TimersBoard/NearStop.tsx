@@ -53,10 +53,10 @@ const NearStop: NearStopComponent = ({ target }) => {
             </Grid>
           </Grid>
           <CardContent>
-            {stop.routes.map((route, i) => (
-              <Fragment key={route.id}>
+            {stop.contacts.map((contact, i) => (
+              <Fragment key={contact.id}>
                 {i > 0 && <Divider className={styles.divider} />}
-                <GuideBoard route={route} />
+                <GuideBoard contact={contact} />
               </Fragment>
             ))}
           </CardContent>

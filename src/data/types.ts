@@ -1,25 +1,24 @@
-export type NextTime = {
-  hour: number;
-  minute: number;
-};
-
-export type TimetableHour = {
-  hour: number;
-  minutes: number[];
-};
+export type NextTime = number;
 
 export type Timetable = {
   id: string;
   calendar: number[];
-  data: TimetableHour[] | null;
+  data: number[] | null;
 };
 
 export type Route = {
   id: string;
+  origin: string;
+  via: string | null;
+  destination: string;
   headsign: string | null;
-  dest: string;
-  description: string;
-  timetables: Timetable[];
+};
+
+export type Contact = {
+  id: string;
+  sequence: number;
+  route: Route;
+  timetable: Timetable;
 };
 
 export type Stop = {
@@ -29,7 +28,7 @@ export type Stop = {
     id: string;
     name: string;
   };
-  routes: Route[];
+  contacts: Contact[];
 };
 
 export type StopWithPath = {
