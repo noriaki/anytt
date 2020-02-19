@@ -18,16 +18,17 @@ import { Timetable, NextTime, Contact } from '~/data/types';
 
 type GuideBoardComponent = React.FC<{
   contact: Contact;
+  delayMinutes: number;
 }>;
 
-type nextTimeF = (timetable: Timetable, now: Date) => NextTime | null;
+type nextTimeF = (timetable: Timetable, now: Date, delay?: number) => NextTime | null;
 
 // prototyping
-const nextTime: nextTimeF = (tt, now) => {
+const nextTime: nextTimeF = (tt, now, delay = 0) => {
   if (tt.data === null) {
     return null;
   }
-  const nowTime = (now.getHours() - 4) * 60 * 60 + now.getMinutes() * 60;
+  const nowTime = (now.getHours() - 4) * 60 * 60 + (now.getMinutes() + delay) * 60;
   const nextTimeIndex = tt.data.findIndex(t => t > nowTime);
   if (nextTimeIndex < 0) {
     return null;
@@ -35,7 +36,8 @@ const nextTime: nextTimeF = (tt, now) => {
   return tt.data[nextTimeIndex];
 };
 
-const GuideBoard: GuideBoardComponent = ({ contact }) => {
+// TODO: pass delay `seconds` instead of minutes (no rounded)
+const GuideBoard: GuideBoardComponent = ({ contact, delayMinutes }) => {
   const { timetable } = contact;
   const now = new Date('2020-01-29 07:11:19');
   const day = now.getDay(); // Wednesday
@@ -43,7 +45,7 @@ const GuideBoard: GuideBoardComponent = ({ contact }) => {
     return null;
   }
 
-  const n = nextTime(timetable, now);
+  const n = nextTime(timetable, now, delayMinutes);
 
   if (n === null) {
     return null;
