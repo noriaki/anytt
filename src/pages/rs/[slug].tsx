@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 
 // data
 import {} from '~/data/types';
-import data from '~/data/fixtures/dt.json';
+import data from '~/data/fixtures/gtfs.json';
 
 // components
 import TimersBoard from '~/components/TimersBoard';

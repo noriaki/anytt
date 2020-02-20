@@ -14,54 +14,55 @@ import ForwardArrowIcon from '@material-ui/icons/ArrowForwardIosRounded';
 import styles from './GuideBoard.module.css';
 
 // types
-import { Route, Timetable, NextTime } from '~/data/types';
+import { Timetable, NextTime, Contact } from '~/data/types';
 
 type GuideBoardComponent = React.FC<{
-  route: Route;
+  contact: Contact;
+  delayMinutes: number;
 }>;
 
-type pickTimetableF = (timetables: Timetable[], day: number) => Timetable | undefined;
-
-type nextTimeF = (timetable: Timetable, now: Date) => NextTime | null;
-
-const pickTimetable: pickTimetableF = (ts, d) => ts.find(t => t.calendar.includes(d));
+type nextTimeF = (timetable: Timetable, now: Date, delay?: number) => NextTime | null;
 
 // prototyping
-const nextTime: nextTimeF = (tt, now) => {
+const nextTime: nextTimeF = (tt, now, delay = 0) => {
   if (tt.data === null) {
     return null;
   }
-  const h = now.getHours();
-  const m = now.getMinutes();
-  const data = tt.data.find(t => t.hour === h);
-  if (data == null) {
+  const nowTime = (now.getHours() - 4) * 60 * 60 + (now.getMinutes() + delay) * 60;
+  const nextTimeIndex = tt.data.findIndex(t => t > nowTime);
+  if (nextTimeIndex < 0) {
     return null;
   }
-  const { hour, minutes } = data;
-  const mi = minutes.findIndex(mt => mt > m);
-  const minute = minutes[mi];
-  return { hour, minute };
+  return tt.data[nextTimeIndex];
 };
 
-const GuideBoard: GuideBoardComponent = ({ route }) => {
+// TODO: pass delay `seconds` instead of minutes (no rounded)
+const GuideBoard: GuideBoardComponent = ({ contact, delayMinutes }) => {
+  const { timetable } = contact;
   const now = new Date('2020-01-29 07:11:19');
   const day = now.getDay(); // Wednesday
-  const timetable = pickTimetable(route.timetables, day);
-
-  let n: NextTime | null;
-  if (timetable != null) {
-    n = nextTime(timetable, now);
+  if (!timetable.calendar.includes(day)) {
+    return null;
   }
+
+  const n = nextTime(timetable, now, delayMinutes);
+
+  if (n === null) {
+    return null;
+  }
+
+  const hour = Math.floor(n / (60 * 60)) + 4;
+  const minute = (n % (60 * 60)) / 60;
 
   return (
     <Grid container direction="column">
       <Grid item container justify="space-between" alignItems="center">
         <Grid item>
-          <Typography>{route.dest}行</Typography>
+          <Typography>{contact.route.destination}行</Typography>
         </Grid>
-        {route.headsign && (
+        {contact.route.headsign && (
           <Grid item>
-            <Chip size="small" label={route.headsign} />
+            <Chip size="small" label={contact.route.headsign} />
           </Grid>
         )}
       </Grid>
@@ -90,7 +91,7 @@ const GuideBoard: GuideBoardComponent = ({ route }) => {
         >
           <Grid item>
             <Typography component="span" variant="h6">
-              {n!.hour}:{n!.minute}
+              {hour}:{minute}
             </Typography>
             <Typography component="span" variant="body2">
               発
@@ -98,7 +99,7 @@ const GuideBoard: GuideBoardComponent = ({ route }) => {
           </Grid>
           <Grid item>
             <Typography component="span" variant="h4">
-              {n!.minute - now.getMinutes()}
+              {minute - now.getMinutes()}
             </Typography>
             <Typography component="span" variant="body2">
               分

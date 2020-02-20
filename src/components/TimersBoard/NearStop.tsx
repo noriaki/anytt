@@ -29,12 +29,12 @@ const calcTraversalTime = (d: number): number => Math.round(d / 60);
 
 const NearStop: NearStopComponent = ({ target }) => {
   const { distance, stop } = target;
-  const time = calcTraversalTime(distance);
+  const traversalMinutes = calcTraversalTime(distance);
 
   return (
     <Grid container direction="column" className={styles.container}>
       <Grid item className={styles.item}>
-        <Chip size="small" icon={<WalkIcon />} label={`${time}分`} />
+        <Chip size="small" icon={<WalkIcon />} label={`${traversalMinutes}分`} />
       </Grid>
       <Grid item className={styles.stop}>
         <Card>
@@ -53,10 +53,10 @@ const NearStop: NearStopComponent = ({ target }) => {
             </Grid>
           </Grid>
           <CardContent>
-            {stop.routes.map((route, i) => (
-              <Fragment key={route.id}>
+            {stop.contacts.map((contact, i) => (
+              <Fragment key={contact.id}>
                 {i > 0 && <Divider className={styles.divider} />}
-                <GuideBoard route={route} />
+                <GuideBoard contact={contact} delayMinutes={traversalMinutes} />
               </Fragment>
             ))}
           </CardContent>
