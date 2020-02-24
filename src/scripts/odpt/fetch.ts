@@ -4,6 +4,9 @@ import fetch from 'node-fetch';
 import yauzl from 'yauzl-promise';
 
 const token = process.env.ODPT_AUTH_TOKEN;
+if (token == null) {
+  throw new Error('missing $ODPT_AUTH_TOKEN');
+}
 const uri = `https://api-tokyochallenge.odpt.org/api/v4/files/Toei/data/ToeiBus-GTFS.zip?acl:consumerKey=${token}`;
 const dirPath = './tmp/odpt';
 
