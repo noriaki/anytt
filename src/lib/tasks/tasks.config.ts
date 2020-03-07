@@ -1,3 +1,5 @@
+import { resolve } from 'path';
+
 type ProcessEnvAuthValue = {
   type: 'process.env';
   name: string;
@@ -62,3 +64,7 @@ const config: TaskConfig = [
 ];
 
 export default config;
+
+const tmpPath = 'tmp';
+export const buildDataDirPath = (key: string): string => resolve(tmpPath, 'data', key);
+export const buildOpsDirPath = (key: string): string => resolve(tmpPath, 'ops', key);
