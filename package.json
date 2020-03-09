@@ -20,7 +20,7 @@
     "@material-ui/icons": "4.9.1",
     "babel-plugin-module-resolver": "4.0.0",
     "dotenv": "8.2.0",
-    "mongoose": "5.9.3",
+    "mongoose": "5.9.4",
     "next": "9.3.0",
     "react": "16.13.0",
     "react-dom": "16.13.0",
