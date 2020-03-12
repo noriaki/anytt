@@ -1,12 +1,11 @@
 import fs from 'fs';
 import path from 'path';
-import util from 'util';
 import fetch from 'node-fetch';
 import yauzl from 'yauzl-promise';
 
 import tasks, { GtfsSource, buildDataDirPath } from './tasks.config';
 
-const mkdirAsync = util.promisify(fs.mkdir);
+const { mkdir } = fs.promises;
 
 const buildUri = (source: GtfsSource): URL => {
   const uri = new URL(source.uri as string);
@@ -61,7 +60,7 @@ const main = async () => {
           }
 
           const outDirPath = buildDataDirPath(source.key);
-          await mkdirAsync(outDirPath, { recursive: true });
+          await mkdir(outDirPath, { recursive: true });
 
           await fetchAndStore(source, outDirPath);
         }),
