@@ -47,26 +47,16 @@ const fetchAndStore = (source: GtfsSource, outDirPath: string): PromiseVoid => {
 };
 
 const main = async () => {
-  await Promise.all(
-    tasks.map(task => {
-      if (task.type !== 'gtfs') {
-        return;
+  for await (const task of tasks.filter(t => t.type === 'gtfs')) {
+    for await (const source of task.sources) {
+      if (source.uri !== null) {
+        const outDirPath = buildDataDirPath(source.key);
+        await mkdir(outDirPath, { recursive: true });
+
+        await fetchAndStore(source, outDirPath);
       }
-
-      return Promise.all(
-        task.sources.map(async source => {
-          if (source.uri === null) {
-            return;
-          }
-
-          const outDirPath = buildDataDirPath(source.key);
-          await mkdir(outDirPath, { recursive: true });
-
-          await fetchAndStore(source, outDirPath);
-        }),
-      );
-    }),
-  );
+    }
+  }
 };
 
 main().catch(err => {
