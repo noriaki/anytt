@@ -67,4 +67,6 @@ export default config;
 
 const tmpPath = 'tmp';
 export const buildDataDirPath = (key: string): string => resolve(tmpPath, 'data', key);
-export const buildOpsDirPath = (key: string): string => resolve(tmpPath, 'ops', key);
+export const opsDirPath = resolve(tmpPath, 'ops');
+export const buildOpsFilePath = (key: string): string =>
+  resolve(opsDirPath, `${key}.json`);
