@@ -2803,7 +2803,7 @@ chalk@^3.0.0:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
 
-chance@^1.0.18:
+chance@^1.1.4:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/chance/-/chance-1.1.4.tgz#d8743bf8e40bb05e024c305ca1ff441195eb23db"
   integrity sha512-pXPDSu3knKlb6H7ahQfpq//J9mSOxYK8SMtp8MV/nRJh8aLRDIl0ipLH8At8+nVogVwtvPZzyIzY/EbcY/cLuQ==
@@ -4385,14 +4385,14 @@ extsprintf@^1.2.0:
   resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.4.0.tgz#e2689f8f356fad62cca65a3a91c5df5f9551692f"
   integrity sha1-4mifjzVvrWLMplo6kcXfX5VRaS8=
 
-fakingoose@1.3.1:
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/fakingoose/-/fakingoose-1.3.1.tgz#faccdb610c7eee6c7bb60f1904724188707f47c3"
-  integrity sha512-7E83w0bM9TNMC3myHbaL10f5DVnlAtceSdISYUXHbJ8JfqfoVscc8fTR8phl+Pq1veqjKJBDHf64FgkTW5AJpg==
+fakingoose@1.3.3:
+  version "1.3.3"
+  resolved "https://registry.yarnpkg.com/fakingoose/-/fakingoose-1.3.3.tgz#735ae1d1804f68ce6c8581d8c7e2baf7e20728a7"
+  integrity sha512-dVfyI1wTUBBViUEIQK8yVXcZ3I0mvCZ4ipSSLBMKeL1tFPoEZwdtVlEzXxoF6DycKc6JV1FLtc3TLnqVijWayw==
   dependencies:
     bson-objectid "^1.3.0"
-    chance "^1.0.18"
-    flat "^4.1.0"
+    chance "^1.1.4"
+    flat "^5.0.0"
     lodash.get "^4.4.2"
     lodash.isplainobject "^4.0.6"
     lodash.merge "^4.6.2"
@@ -4552,12 +4552,12 @@ flat-cache@^2.0.1:
     rimraf "2.6.3"
     write "1.0.3"
 
-flat@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/flat/-/flat-4.1.0.tgz#090bec8b05e39cba309747f1d588f04dbaf98db2"
-  integrity sha512-Px/TiLIznH7gEDlPXcUD4KnBusa6kR6ayRUVcnEAbreRIuhkqow/mun59BuRXwoYk7ZQOLW1ZM05ilIvK38hFw==
+flat@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/flat/-/flat-5.0.0.tgz#dab7d71d60413becb0ac2de9bf4304495e3af6af"
+  integrity sha512-6KSMM+cHHzXC/hpldXApL2S8Uz+QZv+tq5o/L0KQYleoG+GcwrnIJhTWC7tCOiKQp8D/fIvryINU1OZCCwevjA==
   dependencies:
-    is-buffer "~2.0.3"
+    is-buffer "~2.0.4"
 
 flatted@^2.0.0:
   version "2.0.1"
@@ -5217,7 +5217,7 @@ is-buffer@^1.1.5:
   resolved "https://registry.yarnpkg.com/is-buffer/-/is-buffer-1.1.6.tgz#efaa2ea9daa0d7ab2ea13a97b2b8ad51fefbe8be"
   integrity sha512-NcdALwpXkTm5Zvvbk7owOUSvVvBKDgKP5/ewfXEznmQFfs4ZRmanOeKBTjRVjka3QFoN6XJ+9F3USqfHqTaU5w==
 
-is-buffer@~2.0.3:
+is-buffer@~2.0.4:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/is-buffer/-/is-buffer-2.0.4.tgz#3e572f23c8411a5cfd9557c849e3665e0b290623"
   integrity sha512-Kq1rokWXOPXWuaMAqZiJW4XxsmD9zGx9q4aePabbn3qCRGedtH7Cm+zV8WETitMfu1wdh+Rvd6w5egwSngUX2A==
