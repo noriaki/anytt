@@ -3,6 +3,7 @@ import { resolve } from 'path';
 import CSV from 'csv-reader';
 
 import { BulkOperation } from '~/lib/types/mongodb.bulkOps';
+import { GtfsSourceIdentifier } from '../tasks.config';
 
 const createCsvStream = (dirPath: string): CSV => {
   return fs
@@ -12,10 +13,13 @@ const createCsvStream = (dirPath: string): CSV => {
 
 type rowAsObj = { [key: string]: string };
 
-export const buildOpsForSetup = (data: rowAsObj, uri: string): BulkOperation => ({
+export const buildOpsForSetup = (
+  data: rowAsObj,
+  source: GtfsSourceIdentifier,
+): BulkOperation => ({
   updateOne: {
-    filter: { uri },
-    update: { version: data.feed_version, isProcessing: true },
+    filter: { uri: source.uri },
+    update: { key: source.key, version: data.feed_version, isProcessing: true },
     upsert: true,
   },
 });
@@ -23,7 +27,7 @@ export const buildOpsForSetup = (data: rowAsObj, uri: string): BulkOperation => 
 type PromiseReturningBuldOps = Promise<BulkOperation[]>;
 
 export const setup = async (
-  sourceUri: string,
+  source: GtfsSourceIdentifier,
   dirPath: string,
 ): PromiseReturningBuldOps => {
   const csv = createCsvStream(dirPath);
@@ -31,7 +35,7 @@ export const setup = async (
   let firstLine = true;
   for await (const row of csv) {
     if (firstLine) {
-      ops.push(buildOpsForSetup(row, sourceUri));
+      ops.push(buildOpsForSetup(row, source));
       firstLine = false;
     }
   }
@@ -45,6 +49,6 @@ export const buildOpsForTeardown = (uri: string): BulkOperation => ({
   },
 });
 
-export const teardown = (sourceUri: string): BulkOperation[] => [
-  buildOpsForTeardown(sourceUri),
+export const teardown = (source: GtfsSourceIdentifier): BulkOperation[] => [
+  buildOpsForTeardown(source.uri),
 ];

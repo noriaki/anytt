@@ -2,8 +2,9 @@ import { createSchema, Type, typedModel } from 'ts-mongoose';
 
 export const FeedSchema = createSchema(
   {
+    key: Type.string({ required: true, unique: true, index: true }),
     uri: Type.string({ required: true, unique: true, index: true }),
-    version: Type.string(),
+    version: Type.string({ index: true }),
     inProcessing: Type.boolean(),
   },
   { timestamps: true },

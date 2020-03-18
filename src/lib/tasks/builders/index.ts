@@ -7,6 +7,7 @@ import { BulkOperation } from '~/lib/types/mongodb.bulkOps';
 
 // builders
 import { setup, teardown } from './feed';
+import { GtfsSourceIdentifier } from '../tasks.config';
 
 // const { readFile } = fs.promises;
 
@@ -25,14 +26,14 @@ type BulkOpsWithModel = {
 type PromiseReturningBulkOpsWithModels = Promise<BulkOpsWithModel[]>;
 
 const buildBulkOperations = async (
-  sourceUri: string,
+  source: GtfsSourceIdentifier,
   dirPath: string,
 ): PromiseReturningBulkOpsWithModels => {
   // const csv = await readAndParse(dirPath, 'feed_info.txt');
   // const ops: BulkOpsWithModel[] = [];
   return [
-    { model: 'Feed', ops: await setup(sourceUri, dirPath) },
-    { model: 'Feed', ops: teardown(sourceUri) },
+    { model: 'Feed', ops: await setup(source, dirPath) },
+    { model: 'Feed', ops: teardown(source) },
   ];
 };
 

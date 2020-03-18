@@ -22,6 +22,8 @@ export type GtfsSource = {
   auth?: AuthInfo;
 };
 
+export type GtfsSourceIdentifier = { [P in 'key' | 'uri']: NonNullable<GtfsSource[P]> };
+
 type GtfsConfig = {
   type: 'gtfs';
   sources: GtfsSource[];

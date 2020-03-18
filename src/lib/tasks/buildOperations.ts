@@ -10,11 +10,12 @@ const main = async () => {
 
   for await (const task of tasks.filter(t => t.type === 'gtfs')) {
     for await (const source of task.sources) {
-      if (source.uri !== null) {
-        const sourceDirPath = buildDataDirPath(source.key);
-        const destFilePath = buildOpsFilePath(source.key);
+      const { key, uri } = source;
+      if (uri !== null) {
+        const sourceDirPath = buildDataDirPath(key);
+        const destFilePath = buildOpsFilePath(key);
 
-        const ops = await buildBulkOperations(source.uri, sourceDirPath);
+        const ops = await buildBulkOperations({ key, uri }, sourceDirPath);
         await writeFile(destFilePath, JSON.stringify(ops, null, 2));
       }
     }
