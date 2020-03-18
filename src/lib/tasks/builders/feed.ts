@@ -1,20 +1,12 @@
-import fs from 'fs';
-import { resolve } from 'path';
-import CSV from 'csv-reader';
-
+// types
 import { BulkOperation } from '~/lib/types/mongodb.bulkOps';
 import { GtfsSourceIdentifier } from '../tasks.config';
 
-const createCsvStream = (dirPath: string): CSV => {
-  return fs
-    .createReadStream(resolve(dirPath, 'feed_info.txt'), 'utf8')
-    .pipe(new CSV({ skipEmptyLines: true, asObject: true, trim: true }));
-};
-
-type rowAsObj = { [key: string]: string };
+// utils
+import { CsvRowAsObj, createCsvReaderStream } from './utils';
 
 export const buildOpsForSetup = (
-  data: rowAsObj,
+  data: CsvRowAsObj,
   source: GtfsSourceIdentifier,
 ): BulkOperation => ({
   updateOne: {
@@ -30,7 +22,7 @@ export const setup = async (
   source: GtfsSourceIdentifier,
   dirPath: string,
 ): PromiseReturningBuldOps => {
-  const csv = createCsvStream(dirPath);
+  const csv = createCsvReaderStream(dirPath, 'feed_info.txt');
   const ops: BulkOperation[] = [];
   let firstLine = true;
   for await (const row of csv) {
