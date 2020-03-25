@@ -5,10 +5,10 @@ beforeAll(async () => {
 });
 
 afterAll(async () => {
-  const ret = await global.db.connection.dropDatabase();
-  if (ret) {
-    await disconnect();
-  } else {
-    throw new Error('error, cannot drop database.');
-  }
+  // const ret = await global.db.connection.dropDatabase();
+  // if (ret) {
+  await disconnect();
+  // } else {
+  //   throw new Error('error, cannot drop database.');
+  // }
 });
