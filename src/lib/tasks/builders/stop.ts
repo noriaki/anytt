@@ -55,18 +55,36 @@ export const combineStopName = async (
   );
 };
 
-export const buildOps = (data: CsvRowAsObj, key: string): BulkOperation => {
-};
+export const buildOps = (
+  data: CsvRowAsObj,
+  agencyId: string,
+  feedVersion: string,
+): BulkOperation => ({
+  updateOne: {
+    filter: { __id: data.stop_id },
+    update: {
+      name: data.stop_name,
+      loc: {
+        type: 'Point',
+        coordinates: [parseFloat(data.stop_lon), parseFloat(data.stop_lat)],
+      },
+      __agencyId: agencyId,
+      __feedVersion: feedVersion,
+    },
+    upsert: true,
+  },
+});
 
-type PromiseReturningBuldOps = Promise<BulkOperation[]>;
+type PromiseReturningBulkOps = Promise<BulkOperation[]>;
 
-const build = async (
-  source: GtfsSourceIdentifier,
+const build: (
   dirPath: string,
-): PromiseReturningBuildOps => {
+  agencyId: string,
+  feedVersion: string,
+) => PromiseReturningBulkOps = async (dirPath, agencyId, feedVersion) => {
   const csv = createCsvReaderStream(dirPath, 'stops.txt');
   const stops = await combineStopName(csv);
-  return stops.map(stop => buildOps(stop, source.key));
+  return stops.map(stop => buildOps(stop, agencyId, feedVersion));
 };
 
 export default build;
