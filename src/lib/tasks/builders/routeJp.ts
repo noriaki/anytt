@@ -1,0 +1,25 @@
+// utils
+import { CsvRowAsObj, PromiseReturningBulkOps, createCsvReaderStream } from './utils';
+import { BulkOperation } from '~/lib/types/mongodb.bulkOps';
+
+export const buildOps = (data: CsvRowAsObj): BulkOperation => ({
+  updateMany: {
+    filter: { __routeId: data.route_id },
+    update: {
+      origin: data.origin_stop,
+      via: data.via_stop,
+      destination: data.destination_stop,
+    },
+  },
+});
+
+const build: (dirPath: string) => PromiseReturningBulkOps = async dirPath => {
+  const csv = createCsvReaderStream(dirPath, 'routes_jp.txt');
+  const ops: BulkOperation[] = [];
+  for await (const row of csv) {
+    ops.push(buildOps(row));
+  }
+  return ops;
+};
+
+export default build;

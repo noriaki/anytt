@@ -7,6 +7,8 @@ import { setup, teardown, extractFeedVersion } from './feed';
 import buildAgency, { extractAgencyId } from './agency';
 import buildStop from './stop';
 import buildRouteByTrips from './trip';
+import buildRouteByRoutes from './route';
+import buildRouteByRoutesJp from './routeJp';
 
 type BulkOpsWithModel = {
   model: string;
@@ -25,6 +27,8 @@ const buildBulkOperations = async (
     { model: 'Agency', ops: await buildAgency(source, dirPath) },
     { model: 'Stop', ops: await buildStop(dirPath, agencyId, feedVersion) },
     { model: 'Route', ops: await buildRouteByTrips(dirPath, agencyId, feedVersion) },
+    { model: 'Route', ops: await buildRouteByRoutes(dirPath) },
+    { model: 'Route', ops: await buildRouteByRoutesJp(dirPath) },
     { model: 'Feed', ops: teardown(source) },
   ];
 };
