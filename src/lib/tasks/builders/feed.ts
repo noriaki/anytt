@@ -3,7 +3,7 @@ import { BulkOperation } from '~/lib/types/mongodb.bulkOps';
 import { GtfsSourceIdentifier } from '../tasks.config';
 
 // utils
-import { CsvRowAsObj, createCsvReaderStream, parseCsvSync } from './utils';
+import { CsvRowAsObj, createCsvReaderStream, parseCsvSync, PromiseReturningBulkOps } from './utils';
 
 export const buildOpsForSetup = (
   data: CsvRowAsObj,
@@ -20,8 +20,6 @@ export const extractFeedVersion = (dirPath: string): string => {
   const csv = parseCsvSync(dirPath, 'feed_info.txt');
   return csv[0].feed_version;
 };
-
-type PromiseReturningBulkOps = Promise<BulkOperation[]>;
 
 export const setup: (
   source: GtfsSourceIdentifier,

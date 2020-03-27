@@ -1,7 +1,7 @@
 import CSV from 'csv-reader';
 
 // utils
-import { CsvRowAsObj, createCsvReaderStream } from './utils';
+import { CsvRowAsObj, createCsvReaderStream, PromiseReturningBulkOps } from './utils';
 import { BulkOperation } from '~/lib/types/mongodb.bulkOps';
 
 type TparentToChildrenMap = {
@@ -70,8 +70,6 @@ export const buildOps = (
     upsert: true,
   },
 });
-
-type PromiseReturningBulkOps = Promise<BulkOperation[]>;
 
 const build: (
   dirPath: string,

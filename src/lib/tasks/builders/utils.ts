@@ -2,7 +2,10 @@ import fs from 'fs';
 import { resolve } from 'path';
 import CSV from 'csv-reader';
 import parse from 'csv-parse/lib/sync';
+import { BulkOperation } from '~/lib/types/mongodb.bulkOps';
 
+// types
+export type PromiseReturningBulkOps = Promise<BulkOperation[]>;
 export type CsvRowAsObj = { [key: string]: string };
 
 export const createCsvReaderStream = (dirPath: string, fileName: string): CSV => {
