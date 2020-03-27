@@ -1,12 +1,7 @@
 import CSV from 'csv-reader';
 
-// types
-// import { BulkOperation } from '~/lib/types/mongodb.bulkOps';
-// import { GtfsSourceIdentifier } from '../tasks.config';
-
 // utils
 import { CsvRowAsObj, createCsvReaderStream } from './utils';
-import { GtfsSourceIdentifier } from '../tasks.config';
 import { BulkOperation } from '~/lib/types/mongodb.bulkOps';
 
 type TparentToChildrenMap = {
