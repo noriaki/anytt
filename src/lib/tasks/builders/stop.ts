@@ -21,8 +21,8 @@ export const combineStopName = async (
 ): Promise<CsvRowAsObj[]> => {
   const parentToChildrenMap: TparentToChildrenMap = {};
   for await (const row of rows) {
-    // this is child-stop
-    if (row.parent_station !== '') {
+    if (row.location_type === '0') {
+      // this is child-stop
       if (parentToChildrenMap[row.parent_station] == null) {
         parentToChildrenMap[row.parent_station] = {
           children: [row],
@@ -30,15 +30,16 @@ export const combineStopName = async (
       } else {
         parentToChildrenMap[row.parent_station].children.push(row);
       }
-    }
-    // this is parent-stop
-    if (parentToChildrenMap[row.stop_id] == null) {
-      parentToChildrenMap[row.stop_id] = {
-        name: row.stop_name,
-        children: [],
-      };
-    } else {
-      parentToChildrenMap[row.stop_id].name = row.stop_name;
+    } else if (row.location_type === '1') {
+      // this is parent-stop
+      if (parentToChildrenMap[row.stop_id] == null) {
+        parentToChildrenMap[row.stop_id] = {
+          name: row.stop_name,
+          children: [],
+        };
+      } else {
+        parentToChildrenMap[row.stop_id].name = row.stop_name;
+      }
     }
   }
   return Object.keys(parentToChildrenMap).reduce(
