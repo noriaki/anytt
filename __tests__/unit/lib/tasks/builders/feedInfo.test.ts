@@ -1,5 +1,5 @@
 import { resolve } from 'path';
-import { extractFeedVersion } from '~/lib/tasks/builders/feed';
+import { extractFeedVersion } from '~/lib/tasks/builders/feedInfo';
 
 describe('builders/feed#extractFeedVersion', () => {
   it('should returning `feed_version`:string', async () => {

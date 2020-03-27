@@ -1,6 +1,6 @@
-import fixtureData from './fixtures/stop.json';
+import fixtureData from './fixtures/stops.json';
 import { CsvRowAsObj } from '~/lib/tasks/builders/utils';
-import { combineStopName } from '~/lib/tasks/builders/stop';
+import { combineStopName } from '~/lib/tasks/builders/stops';
 
 describe('builders/stop', () => {
   describe('combine stops name `{parent.name}{child.name}#i?`', () => {

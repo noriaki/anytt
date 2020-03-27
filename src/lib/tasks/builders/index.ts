@@ -3,12 +3,12 @@ import { BulkOperation } from '~/lib/types/mongodb.bulkOps';
 import { GtfsSourceIdentifier } from '../tasks.config';
 
 // builders
-import { setup, teardown, extractFeedVersion } from './feed';
+import { setup, teardown, extractFeedVersion } from './feedInfo';
 import buildAgency, { extractAgencyId } from './agency';
-import buildStop from './stop';
-import buildRouteByTrips from './trip';
-import buildRouteByRoutes from './route';
-import buildRouteByRoutesJp from './routeJp';
+import buildStop from './stops';
+import buildRouteByTrips from './trips';
+import buildRouteByRoutes from './routes';
+import buildRouteByRoutesJp from './routesJp';
 
 type BulkOpsWithModel = {
   model: string;
