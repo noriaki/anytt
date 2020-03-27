@@ -6,6 +6,7 @@ import { GtfsSourceIdentifier } from '../tasks.config';
 import { setup, teardown, extractFeedVersion } from './feed';
 import buildAgency, { extractAgencyId } from './agency';
 import buildStop from './stop';
+import buildRouteByTrips from './trip';
 
 type BulkOpsWithModel = {
   model: string;
@@ -23,6 +24,7 @@ const buildBulkOperations = async (
     { model: 'Feed', ops: await setup(source, dirPath) },
     { model: 'Agency', ops: await buildAgency(source, dirPath) },
     { model: 'Stop', ops: await buildStop(dirPath, agencyId, feedVersion) },
+    { model: 'Route', ops: await buildRouteByTrips(dirPath, agencyId, feedVersion) },
     { model: 'Feed', ops: teardown(source) },
   ];
 };
