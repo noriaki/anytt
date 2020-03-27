@@ -13,12 +13,12 @@ export const buildOps = (data: CsvRowAsObj, key: string): BulkOperation => ({
   },
 });
 
-type PromiseReturningBuldOps = Promise<BulkOperation[]>;
+type PromiseReturningBulkOps = Promise<BulkOperation[]>;
 
 const build = async (
   source: GtfsSourceIdentifier,
   dirPath: string,
-): PromiseReturningBuldOps => {
+): PromiseReturningBulkOps => {
   const csv = createCsvReaderStream(dirPath, 'agency.txt');
   const ops: BulkOperation[] = [];
   let firstLine = true;

@@ -16,12 +16,12 @@ export const buildOpsForSetup = (
   },
 });
 
-type PromiseReturningBuldOps = Promise<BulkOperation[]>;
+type PromiseReturningBulkOps = Promise<BulkOperation[]>;
 
 export const setup = async (
   source: GtfsSourceIdentifier,
   dirPath: string,
-): PromiseReturningBuldOps => {
+): PromiseReturningBulkOps => {
   const csv = createCsvReaderStream(dirPath, 'feed_info.txt');
   const ops: BulkOperation[] = [];
   let firstLine = true;
