@@ -33,3 +33,24 @@ const build: (
 };
 
 export default build;
+
+type TtripToRouteAndServiceMap = {
+  [tripId: string]: {
+    route_id: string;
+    service_id: string;
+  };
+};
+
+export const mapTripToRouteAndService: (
+  dirPath: string,
+) => Promise<TtripToRouteAndServiceMap> = async dirPath => {
+  const csv = createCsvReaderStream(dirPath, 'trips.txt');
+  const tripToRouteAndServiceMap: TtripToRouteAndServiceMap = {};
+  for await (const row of csv) {
+    tripToRouteAndServiceMap[row.trip_id] = {
+      route_id: row.route_id,
+      service_id: row.service_id,
+    };
+  }
+  return tripToRouteAndServiceMap;
+};
