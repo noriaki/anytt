@@ -27,6 +27,7 @@
     "csv-parse": "^4.8.8",
     "csv-reader": "^1.0.6",
     "dotenv": "8.2.0",
+    "moment": "^2.24.0",
     "mongoose": "5.9.7",
     "next": "9.3.3",
     "node-fetch": "^2.6.0",
