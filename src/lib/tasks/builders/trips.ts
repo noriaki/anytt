@@ -34,7 +34,7 @@ const build: (
 
 export default build;
 
-type TtripToRouteAndServiceMap = {
+export type TtripToRouteAndServiceMap = {
   [tripId: string]: {
     route_id: string;
     service_id: string;
