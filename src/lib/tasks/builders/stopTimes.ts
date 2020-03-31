@@ -39,18 +39,18 @@ export const combineTimetable = (rows: CsvRowAsObj[]): CombinedTimetable[] => {
 };
 
 export const buildOps = (
-  data: CombinedTimetable,
+  timetable: CombinedTimetable,
   agencyId: string,
   feedVersion: string,
 ): BulkOperation => ({
   updateOne: {
     filter: {
-      __stopId: data.stop_id,
-      __routeId: data.route_id,
-      __serviceId: data.service_id,
+      __stopId: timetable.stop_id,
+      __routeId: timetable.route_id,
+      __serviceId: timetable.service_id,
     },
     update: {
-      data: [],
+      data: timetable.data,
       __agencyId: agencyId,
       __feedVersion: feedVersion,
     },
