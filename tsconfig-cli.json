@@ -1,5 +1,5 @@
 {
-  "extends": "../../../tsconfig.json",
+  "extends": "./tsconfig.json",
   "compilerOptions": {
     "target": "es2019",
     "module": "commonjs",
@@ -7,7 +7,7 @@
     "isolatedModules": false,
     "allowJs": false,
     "lib": ["es2019", "dom"],
-    "outDir": "../../../scripts"
+    "outDir": "./scripts"
   },
-  "include": ["**/*.ts"]
+  "include": ["./src/lib/**/*.ts"]
 }

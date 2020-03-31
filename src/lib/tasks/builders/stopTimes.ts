@@ -1,7 +1,7 @@
 import { mapTripToRouteAndService, TtripToRouteAndServiceMap } from './trips';
 import { CsvRowAsObj, parseCsvSync } from './utils';
 import { BulkOperation } from '~/lib/types/mongodb.bulkOps';
-import { toSecFor4am } from '~/lib/time';
+import { toSecFor4am } from '../../time';
 
 export const createMapTripToRouteAndService: (
   dataMap: TtripToRouteAndServiceMap,
