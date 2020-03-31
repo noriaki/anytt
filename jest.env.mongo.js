@@ -1,5 +1,5 @@
 const NodeEnvironment = require('jest-environment-node');
-const nanoid = require('nanoid/non-secure');
+const { nanoid } = require('nanoid/non-secure');
 
 // why: connect to the database in concurrence
 module.exports = class UsingMongoEnv extends NodeEnvironment {
