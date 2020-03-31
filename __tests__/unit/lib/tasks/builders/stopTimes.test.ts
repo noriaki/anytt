@@ -17,7 +17,7 @@ describe('builders/stopTimes', () => {
         stop_id: '1253-01',
         route_id: '72101-2',
         service_id: '81-170',
-        data: [24540, 27720, 30660, 37740, 44100, 59340],
+        data: [5340, 24540, 27720, 30660, 37740, 44100, 59340],
       };
       const subjects = combineTimetable(data);
       expect(subjects).toHaveLength(5);

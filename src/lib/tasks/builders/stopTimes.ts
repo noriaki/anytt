@@ -10,6 +10,11 @@ export const createMapTripToRouteAndService: (
   ...dataMap[data.trip_id],
 });
 
+const isLargerThanNext: (current: number, next: number) => number = (
+  current,
+  next,
+) => current - next;
+
 export type CombinedTimetable = {
   stop_id: string;
   route_id: string;
@@ -33,7 +38,7 @@ export const combineTimetable = (rows: CsvRowAsObj[]): CombinedTimetable[] => {
     mapper[key].data.push(toSecFor4am(row.departure_time));
   }
   return Object.values(mapper).map((m) => {
-    m.data.sort();
+    m.data.sort(isLargerThanNext);
     return m;
   });
 };
