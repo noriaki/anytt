@@ -18,7 +18,7 @@ describe('builders/stopTimes#combineTimetable', () => {
     const subjects = combineTimetable(data);
     expect(subjects).toHaveLength(5);
     const subject = subjects.find(
-      s =>
+      (s) =>
         s.stop_id === expected.stop_id &&
         s.route_id === expected.route_id &&
         s.service_id === expected.service_id,

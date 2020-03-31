@@ -22,7 +22,7 @@ describe('geo location of Stop', () => {
     ];
     const stops = await Stop.where('loc').within({ box }).select('__id');
     expect(stops).toEqual(
-      expect.arrayContaining(expected.map(__id => expect.objectContaining({ __id }))),
+      expect.arrayContaining(expected.map((__id) => expect.objectContaining({ __id }))),
     );
   });
 
