@@ -1,5 +1,5 @@
 // utils
-import { CsvRowAsObj, PromiseReturningBulkOps, createCsvReaderStream } from './utils';
+import { CsvRowAsObj, parseCsvSync } from './utils';
 import { BulkOperation } from '~/lib/types/mongodb.bulkOps';
 
 export const buildOps = (data: CsvRowAsObj): BulkOperation => ({
@@ -13,13 +13,9 @@ export const buildOps = (data: CsvRowAsObj): BulkOperation => ({
   },
 });
 
-const build: (dirPath: string) => PromiseReturningBulkOps = async dirPath => {
-  const csv = createCsvReaderStream(dirPath, 'routes_jp.txt');
-  const ops: BulkOperation[] = [];
-  for await (const row of csv) {
-    ops.push(buildOps(row));
-  }
-  return ops;
+const build: (dirPath: string) => BulkOperation[] = (dirPath) => {
+  const csv = parseCsvSync(dirPath, 'routes_jp.txt');
+  return csv.map((row) => buildOps(row));
 };
 
 export default build;

@@ -1,13 +1,11 @@
-import transform from 'stream-transform';
-
 import { mapTripToRouteAndService, TtripToRouteAndServiceMap } from './trips';
-import { PromiseReturningBulkOps, CsvRowAsObj, createCsvReaderStream } from './utils';
+import { CsvRowAsObj, parseCsvSync } from './utils';
 import { BulkOperation } from '~/lib/types/mongodb.bulkOps';
 import { toSecFor4am } from '~/lib/time';
 
 export const createMapTripToRouteAndService: (
   dataMap: TtripToRouteAndServiceMap,
-) => (data: CsvRowAsObj) => CsvRowAsObj = dataMap => data => ({
+) => (data: CsvRowAsObj) => CsvRowAsObj = (dataMap) => (data) => ({
   ...data,
   ...dataMap[data.trip_id],
 });
@@ -23,12 +21,9 @@ type TcombineTimetableMapper = {
   [k: string]: CombinedTimetable;
 };
 
-export const combineTimetable = async (
-  // rows: (CsvRowAsObj & Omit<CombinedTimetable, 'data'>)[],
-  rows: CsvRowAsObj[],
-): Promise<CombinedTimetable[]> => {
+export const combineTimetable = (rows: CsvRowAsObj[]): CombinedTimetable[] => {
   const mapper: TcombineTimetableMapper = {};
-  for await (const row of rows) {
+  for (const row of rows) {
     const key = `${row.stop_id}:${row.route_id}:${row.service_id}`;
     if (mapper[key] == null) {
       // eslint-disable-next-line @typescript-eslint/camelcase
@@ -37,7 +32,7 @@ export const combineTimetable = async (
     }
     mapper[key].data.push(toSecFor4am(row.departure_time));
   }
-  return Object.values(mapper).map(m => {
+  return Object.values(mapper).map((m) => {
     m.data.sort();
     return m;
   });
@@ -67,18 +62,12 @@ const build: (
   dirPath: string,
   agencyId: string,
   feedVersion: string,
-) => PromiseReturningBulkOps = async (dirPath, agencyId, feedVersion) => {
-  const csv = createCsvReaderStream(dirPath, 'stop_times.txt');
-  const dataMap = await mapTripToRouteAndService(dirPath);
-  const dataMapper = transform(createMapTripToRouteAndService(dataMap));
-  const timetables = await combineTimetable(csv.pipe(dataMapper));
-  return timetables.map(timetable => buildOps(timetable, agencyId, feedVersion));
-
-  // const ops: BulkOperation[] = [];
-  // for await (const row of csv) {
-  //   ops.push(buildOps(row, agencyId, feedVersion));
-  // }
-  // return ops;
+) => BulkOperation[] = (dirPath, agencyId, feedVersion) => {
+  const csv = parseCsvSync(dirPath, 'stop_times.txt');
+  const dataMap = mapTripToRouteAndService(dirPath);
+  const dataMapper = createMapTripToRouteAndService(dataMap);
+  const timetables = combineTimetable(csv.map(dataMapper));
+  return timetables.map((t) => buildOps(t, agencyId, feedVersion));
 };
 
 export default build;

@@ -8,14 +8,14 @@ describe('builders/stopTimes#combineTimetable', () => {
     data = parseCsvSync(resolve(__dirname, 'fixtures'), 'stop_times.txt');
   });
 
-  it('should returning ', async () => {
+  it('should returning ', () => {
     const expected = {
       stop_id: '1253-01',
       route_id: '72101-2',
       service_id: '81-170',
       data: [24540, 27720, 30660, 37740, 44100, 59340],
     };
-    const subjects = await combineTimetable(data);
+    const subjects = combineTimetable(data);
     expect(subjects).toHaveLength(5);
     const subject = subjects.find(
       s =>
