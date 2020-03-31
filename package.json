@@ -25,7 +25,6 @@
     "@material-ui/icons": "4.9.1",
     "babel-plugin-module-resolver": "4.0.0",
     "csv-parse": "4.8.8",
-    "csv-reader": "1.0.6",
     "dotenv": "8.2.0",
     "moment": "2.24.0",
     "mongoose": "5.9.7",
@@ -33,7 +32,6 @@
     "node-fetch": "2.6.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
-    "stream-transform": "2.0.1",
     "ts-mongoose": "0.0.21",
     "yauzl-promise": "2.1.3"
   },
