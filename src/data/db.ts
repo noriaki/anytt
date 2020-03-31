@@ -1,8 +1,7 @@
 import mongoose, { Connection, Model, Document } from 'mongoose';
 
-import { ResidenceSchema } from './models/Residence';
+// import { ResidenceSchema } from './models/Residence';
 import { StopSchema } from './models/Stop';
-import { RoutingSchema } from './models/Routing';
 
 export type MongooseModel = Model<Document, {}>;
 
@@ -14,9 +13,8 @@ export type DatabaseInfo = {
 };
 
 export const createModels = (connection: Connection) => ({
-  Residence: connection.model('Residence', ResidenceSchema),
+  // Residence: connection.model('Residence', ResidenceSchema),
   Stop: connection.model('Stop', StopSchema),
-  Routing: connection.model('Routing', RoutingSchema),
 });
 
 export const connect = async (): Promise<DatabaseInfo> => {

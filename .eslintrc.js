@@ -78,5 +78,6 @@ module.exports = {
       },
     ],
     'react/prop-types': 'off',
+    'no-restricted-syntax': 'off',
   },
 };
