@@ -28,7 +28,7 @@
     "dotenv": "8.2.0",
     "moment": "2.24.0",
     "mongoose": "5.9.7",
-    "next": "9.3.3",
+    "next": "9.3.4",
     "node-fetch": "2.6.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
