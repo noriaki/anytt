@@ -39,7 +39,7 @@ export const convertSchedule: (days: ScheduleDays) => DayOfWeek[] = (days) =>
 export const buildOps = (data: CsvRowAsObj): BulkOperation => {
   const days = dayOfTheWeekIndexer.reduce(
     (results, day) => ({ ...results, [day]: data[day] }),
-    {},
+    {} as ScheduleDays,
   );
   return {
     updateMany: {
