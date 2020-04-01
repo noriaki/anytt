@@ -9,26 +9,32 @@ import buildStop from './stops';
 import buildRouteByTrips from './trips';
 import buildRouteByRoutes from './routes';
 import buildRouteByRoutesJp from './routesJp';
+import buildTimetableByStopTimes from './stopTimes';
+import buildTimetableByCalendar from './calendar';
 
 type BulkOpsWithModel = {
   model: string;
   ops: BulkOperation[];
 };
-type PromiseReturningBulkOpsWithModels = Promise<BulkOpsWithModel[]>;
 
-const buildBulkOperations = async (
+const buildBulkOperations = (
   source: GtfsSourceIdentifier,
   dirPath: string,
-): PromiseReturningBulkOpsWithModels => {
-  const agencyId = await extractAgencyId(dirPath);
-  const feedVersion = await extractFeedVersion(dirPath);
+): BulkOpsWithModel[] => {
+  const agencyId = extractAgencyId(dirPath);
+  const feedVersion = extractFeedVersion(dirPath);
   return [
-    { model: 'Feed', ops: await setup(source, dirPath) },
-    { model: 'Agency', ops: await buildAgency(source, dirPath) },
-    { model: 'Stop', ops: await buildStop(dirPath, agencyId, feedVersion) },
-    { model: 'Route', ops: await buildRouteByTrips(dirPath, agencyId, feedVersion) },
-    { model: 'Route', ops: await buildRouteByRoutes(dirPath) },
-    { model: 'Route', ops: await buildRouteByRoutesJp(dirPath) },
+    { model: 'Feed', ops: setup(source, dirPath) },
+    { model: 'Agency', ops: buildAgency(source, dirPath) },
+    { model: 'Stop', ops: buildStop(dirPath, agencyId, feedVersion) },
+    { model: 'Route', ops: buildRouteByTrips(dirPath, agencyId, feedVersion) },
+    { model: 'Route', ops: buildRouteByRoutes(dirPath) },
+    { model: 'Route', ops: buildRouteByRoutesJp(dirPath) },
+    {
+      model: 'Timetable',
+      ops: buildTimetableByStopTimes(dirPath, agencyId, feedVersion),
+    },
+    { model: 'Timetable', ops: buildTimetableByCalendar(dirPath) },
     { model: 'Feed', ops: teardown(source) },
   ];
 };

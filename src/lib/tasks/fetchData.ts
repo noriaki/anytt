@@ -32,10 +32,10 @@ type PromiseVoid = Promise<void>;
 
 const fetchAndStore = (source: GtfsSource, outDirPath: string): PromiseVoid => {
   const uri = buildUri(source);
-  return fetch(uri).then(async res => {
+  return fetch(uri).then(async (res) => {
     const buffer = await res.buffer();
     const zipFile = await yauzl.fromBuffer(buffer, { lazyEntries: true });
-    await zipFile.walkEntries(async entry => {
+    await zipFile.walkEntries(async (entry) => {
       const filePath = path.resolve(outDirPath, entry.fileName);
       const writeStream = fs.createWriteStream(filePath);
       const readStream = await zipFile.openReadStream(entry);
@@ -47,7 +47,7 @@ const fetchAndStore = (source: GtfsSource, outDirPath: string): PromiseVoid => {
 };
 
 const main = async () => {
-  for await (const task of tasks.filter(t => t.type === 'gtfs')) {
+  for await (const task of tasks.filter((t) => t.type === 'gtfs')) {
     for await (const source of task.sources) {
       if (source.uri !== null) {
         const outDirPath = buildDataDirPath(source.key);
@@ -59,7 +59,7 @@ const main = async () => {
   }
 };
 
-main().catch(err => {
+main().catch((err) => {
   console.error(err);
   process.exit(1);
 });

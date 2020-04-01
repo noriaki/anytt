@@ -3226,11 +3226,6 @@ csv-parse@4.8.8:
   resolved "https://registry.yarnpkg.com/csv-parse/-/csv-parse-4.8.8.tgz#0acbc4598c1f28652c4250599108096b3a0a68ae"
   integrity sha512-Kv3Ilz2GV58dOoHBXRCTF8ijxlLjl80bG3d67XPI6DNqffb3AnbPbKr/WvCUMJq5V0AZYi6sukOaOQAVpfuVbg==
 
-csv-reader@1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/csv-reader/-/csv-reader-1.0.6.tgz#94c5b5541d29172ecc04437d53d89675af43cbdc"
-  integrity sha512-+xagt7ZlxJWFuW8WH5YvLS5UHv/zlzq/d/dVpG2D0c0A4SSAJ+yJwpVHypqke4rZpRDlyIiiEPcifJbdQidCew==
-
 cyclist@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/cyclist/-/cyclist-1.0.1.tgz#596e9698fd0c80e12038c2b82d6eb1b35b6224d9"
@@ -6624,11 +6619,6 @@ mixin-deep@^1.2.0:
     for-in "^1.0.2"
     is-extendable "^1.0.1"
 
-mixme@^0.3.1:
-  version "0.3.5"
-  resolved "https://registry.yarnpkg.com/mixme/-/mixme-0.3.5.tgz#304652cdaf24a3df0487205e61ac6162c6906ddd"
-  integrity sha512-SyV9uPETRig5ZmYev0ANfiGeB+g6N2EnqqEfBbCGmmJ6MgZ3E4qv5aPbnHVdZ60KAHHXV+T3sXopdrnIXQdmjQ==
-
 mkdirp@1.x:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-1.0.3.tgz#4cf2e30ad45959dddea53ad97d518b6c8205e1ea"
@@ -9081,13 +9071,6 @@ stream-shift@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/stream-shift/-/stream-shift-1.0.1.tgz#d7088281559ab2778424279b0877da3c392d5a3d"
   integrity sha512-AiisoFqQ0vbGcZgQPY1cdP2I76glaVA/RauYR4G4thNFgkTqr90yXTo4LYX60Jl+sIlPNHHdGSwo01AvbKUSVQ==
-
-stream-transform@2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/stream-transform/-/stream-transform-2.0.1.tgz#112ef2b4d8b9b517f9a6994b0bf7b946fa4d51bc"
-  integrity sha512-GiTcO/rRvZP2R8WPwxmxCFP+Of1yIATuFAmYkvSLDfcD93X2WHiPwdgIqeFT2CvL1gyAsjQvu1nB6RDNQ5b2jw==
-  dependencies:
-    mixme "^0.3.1"
 
 strict-uri-encode@^1.0.0:
   version "1.1.0"

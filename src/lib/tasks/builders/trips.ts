@@ -1,5 +1,5 @@
 // utils
-import { CsvRowAsObj, PromiseReturningBulkOps, createCsvReaderStream } from './utils';
+import { CsvRowAsObj, parseCsvSync } from './utils';
 import { BulkOperation } from '~/lib/types/mongodb.bulkOps';
 
 export const buildOps = (
@@ -23,13 +23,9 @@ const build: (
   dirPath: string,
   agencyId: string,
   feedVersion: string,
-) => PromiseReturningBulkOps = async (dirPath, agencyId, feedVersion) => {
-  const csv = createCsvReaderStream(dirPath, 'trips.txt');
-  const ops: BulkOperation[] = [];
-  for await (const row of csv) {
-    ops.push(buildOps(row, agencyId, feedVersion));
-  }
-  return ops;
+) => BulkOperation[] = (dirPath, agencyId, feedVersion) => {
+  const csv = parseCsvSync(dirPath, 'trips.txt');
+  return csv.map((row) => buildOps(row, agencyId, feedVersion));
 };
 
 export default build;
@@ -41,16 +37,18 @@ export type TtripToRouteAndServiceMap = {
   };
 };
 
-export const mapTripToRouteAndService: (
-  dirPath: string,
-) => Promise<TtripToRouteAndServiceMap> = async dirPath => {
-  const csv = createCsvReaderStream(dirPath, 'trips.txt');
-  const tripToRouteAndServiceMap: TtripToRouteAndServiceMap = {};
-  for await (const row of csv) {
-    tripToRouteAndServiceMap[row.trip_id] = {
-      route_id: row.route_id,
-      service_id: row.service_id,
-    };
-  }
-  return tripToRouteAndServiceMap;
+export const mapTripToRouteAndService: (dirPath: string) => TtripToRouteAndServiceMap = (
+  dirPath,
+) => {
+  const csv = parseCsvSync(dirPath, 'trips.txt');
+  return csv.reduce(
+    (results: TtripToRouteAndServiceMap, row) => ({
+      ...results,
+      [row.trip_id]: {
+        route_id: row.route_id,
+        service_id: row.service_id,
+      },
+    }),
+    {},
+  );
 };

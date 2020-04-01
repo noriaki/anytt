@@ -21,6 +21,6 @@ export const importFixture = (db: DatabaseInfo, target: string) => {
 
 export const deleteModelsData = (db: DatabaseInfo) => {
   const models = db.connection.modelNames();
-  const promises = models.map(m => db.connection.models[m].deleteMany({}));
+  const promises = models.map((m) => db.connection.models[m].deleteMany({}));
   return Promise.all(promises);
 };

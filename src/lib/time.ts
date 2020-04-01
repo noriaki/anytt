@@ -24,7 +24,7 @@ export class BusTime {
 }
 /* eslint-enable no-underscore-dangle */
 
-export const toSecFor4am: (time: string) => number = time => {
+export const toSecFor4am: (time: string) => number = (time) => {
   const t = new BusTime(time);
   return t.toSecondsSinceBaseTime();
 };
