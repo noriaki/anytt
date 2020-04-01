@@ -9,7 +9,8 @@ import buildStop from './stops';
 import buildRouteByTrips from './trips';
 import buildRouteByRoutes from './routes';
 import buildRouteByRoutesJp from './routesJp';
-import buildStopTimes from './stopTimes';
+import buildTimetableByStopTimes from './stopTimes';
+import buildTimetableByCalendar from './calendar';
 
 type BulkOpsWithModel = {
   model: string;
@@ -29,7 +30,11 @@ const buildBulkOperations = (
     { model: 'Route', ops: buildRouteByTrips(dirPath, agencyId, feedVersion) },
     { model: 'Route', ops: buildRouteByRoutes(dirPath) },
     { model: 'Route', ops: buildRouteByRoutesJp(dirPath) },
-    { model: 'Timetable', ops: buildStopTimes(dirPath, agencyId, feedVersion) },
+    {
+      model: 'Timetable',
+      ops: buildTimetableByStopTimes(dirPath, agencyId, feedVersion),
+    },
+    { model: 'Timetable', ops: buildTimetableByCalendar(dirPath) },
     { model: 'Feed', ops: teardown(source) },
   ];
 };
