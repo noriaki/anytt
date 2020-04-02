@@ -16,7 +16,7 @@ const fixtures: Tfixtures = {
 
 export const importFixture = (db: DatabaseInfo, target: string) => {
   const { model, data } = fixtures[target];
-  return db.models[model].insertMany(data);
+  return db.connection.models[model].insertMany(data);
 };
 
 export const deleteModelsData = (db: DatabaseInfo) => {

@@ -1,20 +1,36 @@
-import mongoose, { Connection, Model, Document } from 'mongoose';
+import mongoose, { Schema, Document, Model, Connection } from 'mongoose';
+import { Extract } from 'ts-mongoose';
 
-// import { ResidenceSchema } from './models/Residence';
+// models
 import { StopSchema } from './models/Stop';
-
-export type MongooseModel = Model<Document, {}>;
+import { FeedSchema } from './models/Feed';
 
 export type DatabaseInfo = {
   connection: Connection;
-  models: {
-    [name: string]: MongooseModel;
-  };
+  models: Connection['models'];
 };
 
-export const createModels = (connection: Connection) => ({
-  // Residence: connection.model('Residence', ResidenceSchema),
-  Stop: connection.model('Stop', StopSchema),
+export const connectedTypedModel: <
+  T extends Schema,
+  S extends { [name: string]: Function }
+>(
+  connection: Connection,
+  name: string,
+  schema?: T,
+  statics?: S & ThisType<Model<Document & Extract<T>>>,
+) => Model<Document & Extract<T>> & S = (connection, name, schema, statics) => {
+  if (schema && statics) {
+    // eslint-disable-next-line no-param-reassign
+    schema.statics = statics;
+  }
+  return connection.model(name, schema) as any;
+};
+
+export const createModels: (connection: Connection) => DatabaseInfo['models'] = (
+  connection,
+) => ({
+  Stop: connectedTypedModel(connection, 'Stop', StopSchema),
+  Feed: connectedTypedModel(connection, 'Feed', FeedSchema),
 });
 
 export const connect = async (): Promise<DatabaseInfo> => {
@@ -30,9 +46,9 @@ export const connect = async (): Promise<DatabaseInfo> => {
     });
   }
 
-  const models = createModels(connection);
+  createModels(connection);
 
-  return { connection, models };
+  return { connection, models: connection.models };
 };
 
 export const disconnect = async () => {
