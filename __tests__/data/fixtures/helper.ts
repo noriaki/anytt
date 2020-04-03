@@ -5,18 +5,19 @@ import geosearchFixtures from './geosearch.json';
 
 type Tfixtures = {
   [target: string]: {
-    model: string;
-    data: any;
+    [model: string]: any[];
   };
 };
 
 const fixtures: Tfixtures = {
-  geosearch: { model: 'Stop', data: geosearchFixtures },
+  geosearch: geosearchFixtures,
 };
 
 export const importFixture = (db: DatabaseInfo, target: string) => {
-  const { model, data } = fixtures[target];
-  return db.connection.models[model].insertMany(data);
+  const fixture = fixtures[target];
+  return Promise.all(
+    Object.entries(fixture).map(([model, data]) => db.connection.models[model].insertMany(data)),
+  );
 };
 
 export const deleteModelsData = (db: DatabaseInfo) => {
