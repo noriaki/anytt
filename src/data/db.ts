@@ -3,6 +3,9 @@ import { Extract } from 'ts-mongoose';
 
 // models
 import { StopSchema } from './models/Stop';
+import { TimetableSchema } from './models/Timetable';
+import { RouteSchema } from './models/Route';
+import { AgencySchema } from './models/Agency';
 import { FeedSchema } from './models/Feed';
 
 export type DatabaseInfo = {
@@ -30,6 +33,9 @@ export const createModels: (connection: Connection) => DatabaseInfo['models'] = 
   connection,
 ) => ({
   Stop: connectedTypedModel(connection, 'Stop', StopSchema),
+  Timetable: connectedTypedModel(connection, 'Timetable', TimetableSchema),
+  Route: connectedTypedModel(connection, 'Route', RouteSchema),
+  Agency: connectedTypedModel(connection, 'Agency', AgencySchema),
   Feed: connectedTypedModel(connection, 'Feed', FeedSchema),
 });
 
