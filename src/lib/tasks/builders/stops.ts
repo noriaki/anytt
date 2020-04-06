@@ -53,14 +53,16 @@ export const buildOps = (
   feedVersion: string,
 ): BulkOperation => ({
   updateOne: {
-    filter: { __id: data.stop_id },
+    filter: {
+      __id: data.stop_id,
+      __agencyId: agencyId,
+    },
     update: {
       name: data.stop_name,
       loc: {
         type: 'Point',
         coordinates: [parseFloat(data.stop_lon), parseFloat(data.stop_lat)],
       },
-      __agencyId: agencyId,
       __feedVersion: feedVersion,
     },
     upsert: true,

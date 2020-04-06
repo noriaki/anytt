@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-namespace BulkOps {
+export namespace BulkOps {
   type Filterable = {
     filter: { [key: string]: any };
   };

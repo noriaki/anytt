@@ -1,8 +1,8 @@
-import { MongooseModel } from '~/data/db';
+import { DatabaseInfo } from '~/data/db';
 import { importFixture, deleteModelsData } from '../fixtures/helper';
 
 describe('geo location of Stop', () => {
-  let Stop: MongooseModel;
+  let Stop: DatabaseInfo['models']['Stop'];
   beforeEach(async () => {
     const { db } = global;
     await importFixture(db, 'geosearch');

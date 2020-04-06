@@ -53,10 +53,10 @@ export const buildOps = (
       __stopId: timetable.stop_id,
       __routeId: timetable.route_id,
       __serviceId: timetable.service_id,
+      __agencyId: agencyId,
     },
     update: {
       data: timetable.data,
-      __agencyId: agencyId,
       __feedVersion: feedVersion,
     },
     upsert: true,
