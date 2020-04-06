@@ -11,6 +11,7 @@ import buildRouteByRoutes from './routes';
 import buildRouteByRoutesJp from './routesJp';
 import buildTimetableByStopTimes from './stopTimes';
 import buildTimetableByCalendar from './calendar';
+import buildCleaningOldData from './clean';
 
 export type BulkOpsWithModel = {
   model: string;
@@ -35,6 +36,10 @@ const buildBulkOperations = (
       ops: buildTimetableByStopTimes(dirPath, agencyId, feedVersion),
     },
     { model: 'Timetable', ops: buildTimetableByCalendar(dirPath, agencyId) },
+    ...['Stop', 'Route', 'Timetable'].map((model) => ({
+      model,
+      ops: buildCleaningOldData(agencyId, feedVersion),
+    })),
     { model: 'Feed', ops: teardown(source) },
   ];
 };
