@@ -8,11 +8,13 @@ export const buildOps = (
   feedVersion: string,
 ): BulkOperation => ({
   updateOne: {
-    filter: { __id: data.trip_id },
+    filter: {
+      __id: data.trip_id,
+      __agencyId: agencyId,
+    },
     update: {
       __routeId: data.route_id,
       __serviceId: data.service_id,
-      __agencyId: agencyId,
       __feedVersion: feedVersion,
     },
     upsert: true,

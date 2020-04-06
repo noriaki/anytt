@@ -12,7 +12,7 @@ import buildRouteByRoutesJp from './routesJp';
 import buildTimetableByStopTimes from './stopTimes';
 import buildTimetableByCalendar from './calendar';
 
-type BulkOpsWithModel = {
+export type BulkOpsWithModel = {
   model: string;
   ops: BulkOperation[];
 };
@@ -28,13 +28,13 @@ const buildBulkOperations = (
     { model: 'Agency', ops: buildAgency(source, dirPath) },
     { model: 'Stop', ops: buildStop(dirPath, agencyId, feedVersion) },
     { model: 'Route', ops: buildRouteByTrips(dirPath, agencyId, feedVersion) },
-    { model: 'Route', ops: buildRouteByRoutes(dirPath) },
-    { model: 'Route', ops: buildRouteByRoutesJp(dirPath) },
+    { model: 'Route', ops: buildRouteByRoutes(dirPath, agencyId) },
+    { model: 'Route', ops: buildRouteByRoutesJp(dirPath, agencyId) },
     {
       model: 'Timetable',
       ops: buildTimetableByStopTimes(dirPath, agencyId, feedVersion),
     },
-    { model: 'Timetable', ops: buildTimetableByCalendar(dirPath) },
+    { model: 'Timetable', ops: buildTimetableByCalendar(dirPath, agencyId) },
     { model: 'Feed', ops: teardown(source) },
   ];
 };

@@ -36,14 +36,17 @@ export const convertSchedule: (days: ScheduleDays) => DayOfWeek[] = (days) =>
     return results;
   }, []);
 
-export const buildOps = (data: CsvRowAsObj): BulkOperation => {
+export const buildOps = (data: CsvRowAsObj, agencyId: string): BulkOperation => {
   const days = dayOfTheWeekIndexer.reduce(
     (results, day) => ({ ...results, [day]: data[day] }),
     {} as ScheduleDays,
   );
   return {
     updateMany: {
-      filter: { __serviceId: data.service_id },
+      filter: {
+        __serviceId: data.service_id,
+        __agencyId: agencyId,
+      },
       update: {
         schedule: convertSchedule(days),
       },
@@ -51,9 +54,12 @@ export const buildOps = (data: CsvRowAsObj): BulkOperation => {
   };
 };
 
-const build: (dirPath: string) => BulkOperation[] = (dirPath) => {
+const build: (dirPath: string, agencyId: string) => BulkOperation[] = (
+  dirPath,
+  agencyId,
+) => {
   const csv = parseCsvSync(dirPath, 'calendar.txt');
-  return csv.map((row) => buildOps(row));
+  return csv.map((row) => buildOps(row, agencyId));
 };
 
 export default build;
