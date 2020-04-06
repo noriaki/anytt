@@ -11,7 +11,7 @@ export const buildOpsForSetup = (
 ): BulkOperation => ({
   updateOne: {
     filter: { uri: source.uri },
-    update: { key: source.key, version: data.feed_version, isProcessing: true },
+    update: { key: source.key, version: data.feed_version, inProcessing: true },
     upsert: true,
   },
 });
@@ -32,7 +32,7 @@ export const setup: (source: GtfsSourceIdentifier, dirPath: string) => BulkOpera
 export const buildOpsForTeardown = (uri: string): BulkOperation => ({
   updateOne: {
     filter: { uri },
-    update: { isProcessing: false },
+    update: { inProcessing: false },
   },
 });
 
