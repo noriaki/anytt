@@ -1,5 +1,5 @@
 import { mapTripToRouteAndService, TtripToRouteAndServiceMap } from './trips';
-import { CsvRowAsObj, parseCsvSync } from './utils';
+import { CsvRowAsObj, parseCsvSync, isLargerThanNext } from './utils';
 import { BulkOperation } from '~/lib/types/mongodb.bulkOps';
 import { toSecFor4am } from '../../time';
 
@@ -9,11 +9,6 @@ export const createMapTripToRouteAndService: (
   ...data,
   ...dataMap[data.trip_id],
 });
-
-const isLargerThanNext: (current: number, next: number) => number = (
-  current,
-  next,
-) => current - next;
 
 export type CombinedTimetable = {
   stop_id: string;

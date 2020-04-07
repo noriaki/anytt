@@ -13,3 +13,8 @@ export const parseCsvSync = (dirPath: string, fileName: string): CsvRowAsObj[] =
     trim: true,
   });
 };
+
+export const isLargerThanNext: (current: number, next: number) => number = (
+  current,
+  next,
+) => current - next;
