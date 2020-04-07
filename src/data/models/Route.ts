@@ -10,6 +10,7 @@ export const RouteSchema = createSchema(
     __routeId: Type.string({ index: true }),
     __pRouteId: Type.string({ index: true }),
     __serviceId: Type.string({ index: true }),
+    __tripIds: Type.array().of(Type.string()),
     __agencyId: Type.string({ index: true }),
     __feedVersion: Type.string({ index: true }),
   },

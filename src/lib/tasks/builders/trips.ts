@@ -28,18 +28,19 @@ export const combineTripIds: (rows: CsvRowAsObj[]) => CombinedTripIds[] = (rows)
 };
 
 export const buildOps = (
-  data: CsvRowAsObj,
+  data: CombinedTripIds,
   agencyId: string,
   feedVersion: string,
 ): BulkOperation => ({
   updateOne: {
     filter: {
-      __id: data.trip_id,
+      __id: data.id,
       __agencyId: agencyId,
     },
     update: {
       __routeId: data.route_id,
       __serviceId: data.service_id,
+      __tripIds: data.tripIds,
       __feedVersion: feedVersion,
     },
     upsert: true,
@@ -52,7 +53,7 @@ const build: (
   feedVersion: string,
 ) => BulkOperation[] = (dirPath, agencyId, feedVersion) => {
   const csv = parseCsvSync(dirPath, 'trips.txt');
-  return csv.map((row) => buildOps(row, agencyId, feedVersion));
+  return combineTripIds(csv).map((row) => buildOps(row, agencyId, feedVersion));
 };
 
 export default build;
