@@ -10,8 +10,14 @@ export const StopSchema = createSchema(
     __agencyId: Type.string({ index: true }),
     __feedVersion: Type.string({ index: true }),
   },
-  { timestamps: true },
+  { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } },
 );
+
+StopSchema.virtual('timetables', {
+  ref: 'Timetable',
+  localField: '__id',
+  foreignField: '__stopId',
+});
 
 export const collectionName = 'Stop';
 export const Stop = typedModel(collectionName, StopSchema);
