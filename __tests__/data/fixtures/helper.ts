@@ -2,6 +2,7 @@ import { DatabaseInfo } from '~/data/db';
 
 // data
 import geosearchFixtures from './geosearch.json';
+import relationsFixtures from './relations.json';
 
 type Tfixtures = {
   [target: string]: {
@@ -11,12 +12,15 @@ type Tfixtures = {
 
 const fixtures: Tfixtures = {
   geosearch: geosearchFixtures,
+  relations: relationsFixtures,
 };
 
 export const importFixture = (db: DatabaseInfo, target: string) => {
   const fixture = fixtures[target];
   return Promise.all(
-    Object.entries(fixture).map(([model, data]) => db.connection.models[model].insertMany(data)),
+    Object.entries(fixture).map(([model, data]) =>
+      db.connection.models[model].insertMany(data),
+    ),
   );
 };
 
