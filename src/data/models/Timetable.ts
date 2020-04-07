@@ -4,6 +4,7 @@ export const TimetableSchema = createSchema(
   {
     schedule: Type.array().of(Type.number()),
     data: Type.array().of(Type.number()),
+    sequence: Type.number(),
     __stopId: Type.string({ index: true }),
     __routeId: Type.string({ index: true }),
     __serviceId: Type.string({ index: true }),

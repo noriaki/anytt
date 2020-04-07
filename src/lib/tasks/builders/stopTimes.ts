@@ -57,6 +57,7 @@ export const buildOps = (
     },
     update: {
       data: timetable.data,
+      sequence: parseInt(timetable.stop_sequence, 10),
       __feedVersion: feedVersion,
     },
     upsert: true,
