@@ -1,6 +1,7 @@
 // utils
 import { CsvRowAsObj, parseCsvSync } from './utils';
 import { BulkOperation } from '~/lib/types/mongodb.bulkOps';
+import { generateContactId } from './contact';
 
 export type CombinedTripIds = {
   id: string;
@@ -13,13 +14,13 @@ type TcombinedTripIds = { [k: string]: CombinedTripIds };
 export const combineTripIds: (rows: CsvRowAsObj[]) => CombinedTripIds[] = (rows) => {
   const mapper: TcombinedTripIds = {};
   for (const row of rows) {
-    const id = `${row.route_id}-${row.service_id}`;
+    // eslint-disable-next-line @typescript-eslint/camelcase
+    const { route_id, service_id, trip_id } = row;
+    const id = generateContactId(route_id, service_id);
     if (mapper[id] == null) {
-      // eslint-disable-next-line @typescript-eslint/camelcase
-      const { route_id, service_id } = row;
       mapper[id] = { id, route_id, service_id, tripIds: [] };
     }
-    mapper[id].tripIds.push(row.trip_id);
+    mapper[id].tripIds.push(trip_id);
   }
   return Object.values(mapper).map((m) => {
     m.tripIds.sort();

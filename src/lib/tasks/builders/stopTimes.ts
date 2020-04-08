@@ -2,6 +2,7 @@ import { mapTripToRouteAndService, TtripToRouteAndServiceMap } from './trips';
 import { CsvRowAsObj, parseCsvSync, isLargerThanNext } from './utils';
 import { BulkOperation } from '~/lib/types/mongodb.bulkOps';
 import { toSecFor4am } from '../../time';
+import { generateContactId } from './contact';
 
 export const createMapTripToRouteAndService: (
   dataMap: TtripToRouteAndServiceMap,
@@ -46,13 +47,14 @@ export const buildOps = (
   updateOne: {
     filter: {
       __stopId: timetable.stop_id,
-      __routeId: timetable.route_id,
-      __serviceId: timetable.service_id,
+      __contactId: generateContactId(timetable.route_id, timetable.service_id),
       __agencyId: agencyId,
     },
     update: {
       data: timetable.data,
       sequence: parseInt(timetable.stop_sequence, 10),
+      __routeId: timetable.route_id,
+      __serviceId: timetable.service_id,
       __feedVersion: feedVersion,
     },
     upsert: true,
