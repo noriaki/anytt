@@ -27,7 +27,27 @@ describe('Relations between Stop/Route/Timetable', () => {
   it('Stop has many Timetables', async () => {
     const stop = await Stop.findOne().populate('timetables');
     expect(stop.timetables).toHaveLength(1);
-    // eslint-disable-next-line no-underscore-dangle
-    expect(stop.timetables[0]).toHaveProperty('__stopId', stop.__id);
+    const { __id } = stop;
+    expect(stop).toHaveProperty(['timetables', 0, '__stopId'], __id);
+  });
+
+  it('Timetable belongs to Stop', async () => {
+    const timetable = await Timetable.findOne().populate('stop');
+    const { __stopId } = timetable;
+    expect(timetable).toHaveProperty(['stop', '__id'], __stopId);
+  });
+
+  it('Route has many Timetables', async () => {
+    const route = await Route.findOne().populate('timetables');
+    expect(route.timetables).toHaveLength(1);
+    const { __id } = route;
+    expect(route).toHaveProperty(['timetables', 0, '__routeId'], __id);
+  });
+
+  it('Timetable belongs to Route', async () => {
+    const timetable = await Timetable.findOne().populate('route');
+    const { __routeId, __serviceId } = timetable;
+    expect(timetable).toHaveProperty(['route', '__routeId'], __routeId);
+    expect(timetable).toHaveProperty(['route', '__serviceId'], __serviceId);
   });
 });
