@@ -14,8 +14,18 @@ export const RouteSchema = createSchema(
     __agencyId: Type.string({ index: true }),
     __feedVersion: Type.string({ index: true }),
   },
-  { timestamps: true },
+  {
+    timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+  },
 );
+
+RouteSchema.virtual('timetables', {
+  ref: 'Timetable',
+  localField: '__id',
+  foreignField: '__contactId',
+});
 
 export const collectionName = 'Route';
 export const Route = typedModel(collectionName, RouteSchema);

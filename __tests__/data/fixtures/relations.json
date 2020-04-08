@@ -16,6 +16,7 @@
   "Timetable": [
     {
       "__agencyId" : "8000020130001",
+      "__contactId" : "72401-2-81-170",
       "__routeId" : "72401-2",
       "__serviceId" : "81-170",
       "__stopId" : "2442-01",

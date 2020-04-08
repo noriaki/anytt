@@ -41,7 +41,7 @@ describe('Relations between Stop/Route/Timetable', () => {
     const route = await Route.findOne().populate('timetables');
     expect(route.timetables).toHaveLength(1);
     const { __id } = route;
-    expect(route).toHaveProperty(['timetables', 0, '__routeId'], __id);
+    expect(route).toHaveProperty(['timetables', 0, '__contactId'], __id);
   });
 
   it('Timetable belongs to Route', async () => {

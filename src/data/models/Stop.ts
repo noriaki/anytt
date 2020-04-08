@@ -10,7 +10,11 @@ export const StopSchema = createSchema(
     __agencyId: Type.string({ index: true }),
     __feedVersion: Type.string({ index: true }),
   },
-  { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } },
+  {
+    timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+  },
 );
 
 StopSchema.virtual('timetables', {
