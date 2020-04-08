@@ -10,11 +10,22 @@ export const RouteSchema = createSchema(
     __routeId: Type.string({ index: true }),
     __pRouteId: Type.string({ index: true }),
     __serviceId: Type.string({ index: true }),
+    __tripIds: Type.array().of(Type.string()),
     __agencyId: Type.string({ index: true }),
     __feedVersion: Type.string({ index: true }),
   },
-  { timestamps: true },
+  {
+    timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+  },
 );
+
+RouteSchema.virtual('timetables', {
+  ref: 'Timetable',
+  localField: '__id',
+  foreignField: '__contactId',
+});
 
 export const collectionName = 'Route';
 export const Route = typedModel(collectionName, RouteSchema);

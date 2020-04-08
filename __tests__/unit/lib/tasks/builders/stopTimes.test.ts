@@ -1,5 +1,8 @@
 import { resolve } from 'path';
-import { combineTimetable, createMapTripToRouteAndService } from '~/lib/tasks/builders/stopTimes';
+import {
+  combineTimetable,
+  createMapTripToRouteAndService,
+} from '~/lib/tasks/builders/stopTimes';
 import { parseCsvSync, CsvRowAsObj } from '~/lib/tasks/builders/utils';
 
 // data
