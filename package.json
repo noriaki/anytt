@@ -11,13 +11,13 @@
     "test:unit:watch": "yarn test:unit --watch",
     "test:withdb": "jest --config=./jest.config.withdb.js",
     "test:withdb:watch": "yarn test:withdb --watch",
-    "tasks:fetch": "node scripts/fetchData.js",
-    "tasks:buildOps": "node scripts/buildOperations.js",
-    "tasks:runOps": "node scripts/runOperations.js",
+    "tasks:fetch": "node scripts/lib/tasks/fetchData.js",
+    "tasks:buildOps": "node scripts/lib/tasks/buildOperations.js",
+    "tasks:runOps": "node scripts/lib/tasks/runOperations.js",
     "dev": "next dev --port 3555",
     "dev:now": "now dev --listen 3555",
     "build": "next build",
-    "build:tasks": "tsc --project ./src/lib/tasks/tsconfig-cli.json",
+    "build:tasks": "tsc --project tsconfig-cli.json",
     "start": "next start"
   },
   "dependencies": {
