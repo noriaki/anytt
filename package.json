@@ -44,7 +44,7 @@
     "@types/node": "13.13.32",
     "@types/node-fetch": "2.5.7",
     "@types/react": "16.14.24",
-    "@types/react-dom": "16.9.10",
+    "@types/react-dom": "16.9.14",
     "@types/yauzl-promise": "2.1.0",
     "@typescript-eslint/eslint-plugin": "2.34.0",
     "@typescript-eslint/parser": "2.34.0",
