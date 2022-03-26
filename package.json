@@ -24,7 +24,7 @@
   "dependencies": {
     "@material-ui/core": "4.11.0",
     "@material-ui/icons": "4.9.1",
-    "babel-plugin-module-resolver": "4.0.0",
+    "babel-plugin-module-resolver": "4.1.0",
     "csv-parse": "4.14.1",
     "dotenv": "8.2.0",
     "moment": "2.29.1",
