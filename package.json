@@ -27,7 +27,7 @@
     "babel-plugin-module-resolver": "4.1.0",
     "csv-parse": "4.16.3",
     "dotenv": "8.6.0",
-    "moment": "2.29.2",
+    "moment": "2.29.4",
     "mongoose": "5.10.15",
     "next": "9.5.5",
     "node-fetch": "2.6.7",
