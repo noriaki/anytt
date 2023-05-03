@@ -22,7 +22,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "@material-ui/core": "4.12.4",
+    "@mui/material": "5.0.0",
     "@material-ui/icons": "4.11.3",
     "babel-plugin-module-resolver": "4.1.0",
     "csv-parse": "4.16.3",
