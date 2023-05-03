@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@material-ui/core": "4.12.4",
-    "@material-ui/icons": "4.11.3",
+    "@mui/icons-material": "5.0.0",
     "babel-plugin-module-resolver": "4.1.0",
     "csv-parse": "4.16.3",
     "dotenv": "8.6.0",
